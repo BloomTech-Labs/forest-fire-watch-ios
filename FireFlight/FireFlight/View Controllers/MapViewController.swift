@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     var apiController: APIController?
     var addresses: [UserAddress]? {
         didSet {
-            print("Addresses: \(addresses)")
+            //print("Addresses: \(addresses)")
             
             mapAddresses()
             getFires()
@@ -42,6 +42,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         setupFloaty()
     }
     
+    
+    
+    
     func setupMap() {
         let url = URL(string: "mapbox://styles/mapbox/streets-v11")
         mapView = MGLMapView(frame: view.bounds, styleURL: url)
@@ -49,6 +52,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         //mapView.setCenter(CLLocationCoordinate2D(latitude: 37, longitude: 122), zoomLevel: 12, animated: true)
         view.addSubview(mapView)
         mapView.delegate = self
+        
         //mapView.showsUserLocation = true
         //mapView.setUserTrackingMode(.none, animated: true, completionHandler: nil)
     }
@@ -60,6 +64,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         mapView.setCenter(coords, zoomLevel: 3, animated: true)
     }
     
+    
+
     
     
     func setupFloaty() {
@@ -135,7 +141,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     func mapFires() {
-        print("FIRES Nearby: \(fires?.count)")
+        //print("FIRES Nearby: \(fires?.count)")
         
         guard let fires = fires else { return }
         
@@ -170,9 +176,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 
                 self.mapView.addAnnotation(marker)
             }
-            
         }
-        
     }
     
     
@@ -203,6 +207,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
             annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
+            
+            
             annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
             annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
             annotationView?.layer.borderWidth = 4.0
@@ -210,29 +216,40 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             annotationView!.backgroundColor = AppearanceHelper.ming
         }
         
+        
         return annotationView
     }
     
-    // This delegate method is where you tell the map to load an image for a specific annotation based on the willUseImage property of the custom subclass.
+    
+    
+    
+//     This delegate method is where you tell the map to load an image for a specific annotation based on the userFireImage property of the custom subclass.
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        
+
         if let castAnnotation = annotation as? CustomPointAnnotation {
             if (!castAnnotation.useFireImage) {
                 return nil
             }
         }
-        
+
         // For better performance, always try to reuse existing annotations.
         var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: "fire")
-        
+
         // If there is no reusable annotation image available, initialize a new one.
         if(annotationImage == nil) {
-            annotationImage = MGLAnnotationImage(image: UIImage(named: "fireIcon")!, reuseIdentifier: "fire")
+
+            var image = UIImage(named: "flameIcon")!
+            let size = CGSize(width: 40, height: 40)
+            UIGraphicsBeginImageContext(size)
+            image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            guard let resizedImage = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+
+            annotationImage = MGLAnnotationImage(image: resizedImage, reuseIdentifier: "fire")
         }
-        
+
         return annotationImage
     }
-    
+
 
     
 

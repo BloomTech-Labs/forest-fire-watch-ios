@@ -60,21 +60,31 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func signInPressed(_ sender: Any) {
-        var username: String?
-        var password: String?
-        if usernameTextField.text != "" && passwordTextField.text != "" {
-            username = usernameTextField.text
-            password = passwordTextField.text
-        } else {
-            NSLog("Entered username or password is not valid")
-            return
-            
+        
+        guard let username = usernameTextField.text,
+            let password = passwordTextField.text,
+            !username.isEmpty, !password.isEmpty else {
+                NSLog("Entered username or password is not valid")
+                return
         }
         
+        let formattedUsername = username.trimmingCharacters(in: .whitespaces)/*.uppercased()*/
+        let formattedPassword = password.trimmingCharacters(in: .whitespaces)/*.uppercased()*/
 
-        apiController?.loginUser(username: username!, password: password!, completion: { (error) in
+        
+        apiController?.loginUser(username: formattedUsername, password: formattedPassword, completion: { (error, customError) in
             if let error = error {
                 NSLog("Error logging in user: \(error)")
+                return
+            } else if let customError = customError {
+                NSLog(customError)
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error Logging In", message: customError, preferredStyle: .alert)
+                    let dimissAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                    alert.addAction(dimissAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
                 return
             } else if self.apiController?.bearer?.token != "" {
                 DispatchQueue.main.async {

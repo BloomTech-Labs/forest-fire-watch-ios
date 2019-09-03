@@ -86,9 +86,11 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
         guard let street = streetTextField.text,
             let city = cityTextField.text,
             let state = stateTextField.text,
-            let zipCode = zipCodeTextField.text else { return }
+            let zipCode = zipCodeTextField.text,
+            !street.isEmpty, !city.isEmpty, !state.isEmpty, !zipCode.isEmpty else { return }
+        let formattedState = state.uppercased()
 
-        let addressString = "\(street), \(city), \(state) \(zipCode)"
+        let addressString = "\(street), \(city), \(formattedState) \(zipCode)"
         
         self.addressString = street
         
@@ -127,6 +129,10 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
         
         
         apiController?.postAddress(label: label, address: address, location: location)
+        
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
         
     }
     

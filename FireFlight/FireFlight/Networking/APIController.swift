@@ -31,7 +31,7 @@ class APIController {
     
     
     // MARK: - Register User
-    func registerUser(username: String, password: String, completion: @escaping (Error?) -> Void) {
+    func registerUser(username: String, password: String, completion: @escaping (Error?, String?) -> Void) {
         
         let requestURL = baseURL
             .appendingPathComponent("auth")
@@ -48,40 +48,45 @@ class APIController {
             request.httpBody = try JSONEncoder().encode(user)
         } catch {
             NSLog("Error encoding user: \(error)")
-            completion(error)
+            completion(error, nil)
             return
         }
         
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
+            guard let data = data else {
+                NSLog("No bearer token returned")
+                completion(NSError(), nil)
+                return
+            }
+            
+            
             if let response = response as? HTTPURLResponse,
                 response.statusCode != 201 {
                 NSLog("something went wrong: Error Code: \(response.statusCode)")
-                completion(NSError())
+                
+                let responseError = String(data: data, encoding: String.Encoding.utf8)
+                
+                completion(nil, responseError)
                 return
             }
             
             if let error = error {
                 NSLog("Error signing up user: \(error)")
-                completion(error)
+                completion(error, nil)
                 return
             }
             
-            guard let data = data else {
-                NSLog("No bearer token returned")
-                completion(NSError())
-                return
-            }
-            
+   
             
             do {
                 let apiBearer = try JSONDecoder().decode(Bearer.self, from: data)
                 self.bearer = apiBearer
-                completion(nil)
+                completion(nil, nil)
             } catch {
                 NSLog("Error decoding Bearer: \(error)")
-                completion(error)
+                completion(error, nil)
                 return
             }
             
@@ -91,7 +96,7 @@ class APIController {
     
     // MARK: - Log in User
     
-    func loginUser(username: String, password: String, completion: @escaping (Error?) -> Void) {
+    func loginUser(username: String, password: String, completion: @escaping (Error?, String?) -> Void) {
 
         let requestURL = baseURL
             .appendingPathComponent("auth")
@@ -108,40 +113,45 @@ class APIController {
             request.httpBody = try JSONEncoder().encode(user)
         } catch {
             NSLog("Error encoding user: \(error)")
-            completion(error)
+            completion(error, nil)
             return
         }
 
 
         URLSession.shared.dataTask(with: request) { (data, response, error) in
 
+            guard let data = data else {
+                NSLog("No bearer token returned")
+                completion(NSError(), nil)
+                return
+            }
+            
+            
             if let response = response as? HTTPURLResponse,
                 response.statusCode != 200 {
                 NSLog("something went wrong: Error Code: \(response.statusCode)")
-                completion(NSError())
+                
+                let responseError = String(data: data, encoding: String.Encoding.utf8)
+                
+                completion(nil, responseError)
                 return
             }
 
             if let error = error {
                 NSLog("Error signing up user: \(error)")
-                completion(error)
+                completion(error, nil)
                 return
             }
 
-            guard let data = data else {
-                NSLog("No bearer token returned")
-                completion(NSError())
-                return
-            }
 
 
             do {
                 let apiBearer = try JSONDecoder().decode(Bearer.self, from: data)
                 self.bearer = apiBearer
-                completion(nil)
+                completion(nil, nil)
             } catch {
                 NSLog("Error decoding Bearer: \(error)")
-                completion(error)
+                completion(error, nil)
                 return
             }
 

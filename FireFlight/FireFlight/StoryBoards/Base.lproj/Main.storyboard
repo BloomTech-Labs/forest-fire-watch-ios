@@ -126,7 +126,7 @@
                                         <rect key="frame" x="0.0" y="66.5" width="310.5" height="50.5"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -229,7 +229,7 @@
                                         <rect key="frame" x="0.0" y="72" width="310.5" height="56"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -359,7 +359,7 @@
                                                 <rect key="frame" x="0.0" y="301.5" width="350" height="59"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -417,7 +417,7 @@
         <image name="closeButton" width="720" height="720"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BrA-pL-GWu"/>
+        <segue reference="VsJ-yD-meH"/>
         <segue reference="Eme-NL-cVL"/>
         <segue reference="uxS-83-lCZ"/>
     </inferredMetricsTieBreakers>

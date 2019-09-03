@@ -78,9 +78,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             
         }
         
-        apiController?.registerUser(username: username!, password: password!, completion: { (error) in
+        apiController?.registerUser(username: username!, password: password!, completion: { (error, customError) in
             if let error = error {
                 NSLog("Error registering user: \(error)")
+                return
+            } else if let customError = customError {
+                NSLog(customError)
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error Logging In", message: customError, preferredStyle: .alert)
+                    let dimissAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                    alert.addAction(dimissAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
                 return
             }
             DispatchQueue.main.async {
