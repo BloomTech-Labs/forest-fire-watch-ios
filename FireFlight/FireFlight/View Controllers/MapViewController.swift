@@ -58,16 +58,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
     
     
-    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-        guard let address = self.addresses?.last else { return }
-        let coords = CLLocationCoordinate2D(latitude: address.latitude, longitude: address.longitude)
-        mapView.setCenter(coords, zoomLevel: 3, animated: true)
-    }
-    
-    
-
-    
-    
     func setupFloaty() {
         let houseIcon = UIImage(named: "HouseOutline")
         let floaty = Floaty()
@@ -87,10 +77,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
-    
-    
-    
-    
     func getUserAddresses() {
         let getAddressesItem = DispatchWorkItem {
             self.apiController?.getAddresses(completion: { (addresses, error) in
@@ -98,10 +84,19 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                     NSLog("Error getting user addresses: \(error), mapping default address")
                     //self.addresses = nil
                     
-                    self.addresses = [UserAddress(latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 5000)]
+                    self.addresses = [UserAddress(latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 500)]
+                    DispatchQueue.main.async {
+                        let coords = CLLocationCoordinate2D(latitude: 44.4, longitude: -110.5)
+                        self.mapView.setCenter(coords, zoomLevel: 3, animated: true)
+                    }
                     return
                 }
                 self.addresses = addresses
+                DispatchQueue.main.async {
+                    guard let address = self.addresses?.last else { return }
+                    let coords = CLLocationCoordinate2D(latitude: address.latitude, longitude: address.longitude)
+                    self.mapView.setCenter(coords, zoomLevel: 3, animated: true)
+                }
                 
             })
         }
@@ -146,6 +141,25 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
+    func mapAddresses() {
+        
+        guard let addresses = addresses else { return }
+        
+        DispatchQueue.main.async {
+            
+            for address in addresses {
+                let marker = CustomPointAnnotation()
+                marker.coordinate = CLLocationCoordinate2D(latitude: address.latitude, longitude: address.longitude)
+                marker.title = address.label
+                marker.subtitle = address.address
+                marker.useFireImage = false
+                
+                self.mapView.addAnnotation(marker)
+            }
+        }
+    }
+    
+    
     
     func mapFires() {
         //print("FIRES Nearby: \(fires?.count)")
@@ -168,23 +182,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
-    func mapAddresses() {
-        
-        guard let addresses = addresses else { return }
-        
-        DispatchQueue.main.async {
-            
-            for address in addresses {
-                let marker = CustomPointAnnotation()
-                marker.coordinate = CLLocationCoordinate2D(latitude: address.latitude, longitude: address.longitude)
-                marker.title = address.label
-                marker.subtitle = address.address
-                marker.useFireImage = false
-                
-                self.mapView.addAnnotation(marker)
-            }
-        }
-    }
     
     
     

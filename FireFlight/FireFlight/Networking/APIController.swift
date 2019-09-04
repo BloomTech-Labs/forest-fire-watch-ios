@@ -239,7 +239,7 @@ class APIController {
     
     func checkForFires(location: CLLocation, distance: Double, completion: @escaping ([Fire]?, Error?) -> Void) {
         let address = AddressToCheck(coords: [location.coordinate.longitude, location.coordinate.latitude], distance: distance)
-        print(address)
+        //print(address)
         let url = fireURL
         
         var request = URLRequest(url: url)
