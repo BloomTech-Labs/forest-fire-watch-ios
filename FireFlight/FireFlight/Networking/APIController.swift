@@ -202,9 +202,9 @@ class APIController {
     
     
     
-    func postAddress(label: String, address: String, location: CLLocation) {
+    func postAddress(label: String, address: String, location: CLLocation, shownFireRadius: Float) {
         
-        let newAddress = UserAddress(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: 1000)
+        let newAddress = UserAddress(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: Double(shownFireRadius))
         print(newAddress)
         
         let requestURL = baseURL.appendingPathComponent("locations")
@@ -238,8 +238,8 @@ class APIController {
     // MARK: - Fire API
     
     func checkForFires(location: CLLocation, distance: Double, completion: @escaping ([Fire]?, Error?) -> Void) {
-        let address = AddressToCheck(coords: [location.coordinate.latitude, location.coordinate.longitude], distance: 10000)
-
+        let address = AddressToCheck(coords: [location.coordinate.longitude, location.coordinate.latitude], distance: distance)
+        print(address)
         let url = fireURL
         
         var request = URLRequest(url: url)
@@ -255,7 +255,7 @@ class APIController {
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
+
             if let error = error {
                 NSLog("Error getting fires: \(error)")
                 completion(nil, error)
@@ -283,7 +283,7 @@ class APIController {
                     let newFire = Fire(latitude: lat!, longitude: long!)
                     firesArray.append(newFire)
                 }
-            completion(firesArray, nil)
+                completion(firesArray, nil)
                 
                 
             } catch {

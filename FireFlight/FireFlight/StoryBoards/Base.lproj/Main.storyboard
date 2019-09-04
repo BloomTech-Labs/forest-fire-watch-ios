@@ -329,42 +329,56 @@
                                 <rect key="frame" x="32" y="224" width="350" height="448"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HlO-RY-A47">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="360.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="298.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Label" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cFL-VF-DIw">
-                                                <rect key="frame" x="0.0" y="0.0" width="350" height="59.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="47"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Street" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PxJ-dk-Rib">
-                                                <rect key="frame" x="0.0" y="75.5" width="350" height="59"/>
+                                                <rect key="frame" x="0.0" y="63" width="350" height="46.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lpg-Iw-vAU">
-                                                <rect key="frame" x="0.0" y="150.5" width="350" height="59.5"/>
+                                                <rect key="frame" x="0.0" y="125.5" width="350" height="47"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State (Ex: CA)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N16-Ok-PRn">
-                                                <rect key="frame" x="0.0" y="226" width="350" height="59.5"/>
+                                                <rect key="frame" x="0.0" y="188.5" width="350" height="47"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9mP-J0-Ux5">
-                                                <rect key="frame" x="0.0" y="301.5" width="350" height="59"/>
+                                                <rect key="frame" x="0.0" y="251.5" width="350" height="47"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="B1q-m4-ch2">
+                                        <rect key="frame" x="0.0" y="326.5" width="350" height="46.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius: (Shown Fires)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDK-wr-dkL">
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="250" minValue="10" maxValue="500" translatesAutoresizingMaskIntoConstraints="NO" id="aGe-vH-1Z2">
+                                                <rect key="frame" x="-2" y="23" width="354" height="24.5"/>
+                                            </slider>
+                                        </subviews>
+                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efs-NZ-BOW">
-                                        <rect key="frame" x="0.0" y="388.5" width="350" height="59.5"/>
+                                        <rect key="frame" x="0.0" y="401" width="350" height="47"/>
                                         <state key="normal" title="Add Address"/>
                                         <connections>
                                             <action selector="addAddressPressed:" destination="6Tk-2q-u2M" eventType="touchUpInside" id="4HC-kf-QvZ"/>
@@ -373,6 +387,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Efs-NZ-BOW" firstAttribute="height" secondItem="9mP-J0-Ux5" secondAttribute="height" id="K5Q-5k-fmh"/>
+                                    <constraint firstItem="B1q-m4-ch2" firstAttribute="height" secondItem="9mP-J0-Ux5" secondAttribute="height" id="o0Q-xE-KgA"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djZ-v0-kGT">
@@ -403,6 +418,7 @@
                         <outlet property="cityTextField" destination="Lpg-Iw-vAU" id="bks-tm-k6V"/>
                         <outlet property="closeButton" destination="djZ-v0-kGT" id="qsr-p1-cqd"/>
                         <outlet property="labelTextField" destination="cFL-VF-DIw" id="eNX-b2-2PA"/>
+                        <outlet property="radiusSlider" destination="aGe-vH-1Z2" id="PeN-F8-7R8"/>
                         <outlet property="stateTextField" destination="N16-Ok-PRn" id="taV-Cv-UR5"/>
                         <outlet property="streetTextField" destination="PxJ-dk-Rib" id="hNP-6h-tQM"/>
                         <outlet property="zipCodeTextField" destination="9mP-J0-Ux5" id="9H0-ed-Y9n"/>
@@ -410,7 +426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5RN-Ag-aXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4093" y="196"/>
+            <point key="canvasLocation" x="4092.753623188406" y="195.53571428571428"/>
         </scene>
     </scenes>
     <resources>

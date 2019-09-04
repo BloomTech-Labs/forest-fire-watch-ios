@@ -16,11 +16,12 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     var addressString: String?
     var newLocation: CLLocation? {
         didSet {
-            print(newLocation)
+            //print(newLocation)
             saveAddress() 
         }
     }
     
+    @IBOutlet weak var radiusSlider: UISlider!
     @IBOutlet weak var labelTextField: UITextField!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var streetTextField: UITextField!
@@ -126,9 +127,10 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
                 NSLog("Address Not Valid")
                 return
         }
+        let radius = radiusSlider.value
         
         
-        apiController?.postAddress(label: label, address: address, location: location)
+        apiController?.postAddress(label: label, address: address, location: location, shownFireRadius: radius)
         
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)

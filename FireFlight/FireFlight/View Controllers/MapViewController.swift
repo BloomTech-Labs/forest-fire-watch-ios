@@ -19,13 +19,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     var addresses: [UserAddress]? {
         didSet {
             //print("Addresses: \(addresses)")
-            
             mapAddresses()
-            getFires()
+             getFires()
         }
     }
     var fires: [Fire]? {
         didSet {
+            print("Fires: \(fires?.count)")
             mapFires()
         }
     }
@@ -95,16 +95,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         let getAddressesItem = DispatchWorkItem {
             self.apiController?.getAddresses(completion: { (addresses, error) in
                 if let error = error {
-                    NSLog("Error getting user addresses: \(error)")
-                    self.addresses = nil
+                    NSLog("Error getting user addresses: \(error), mapping default address")
+                    //self.addresses = nil
+                    
+                    self.addresses = [UserAddress(latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 5000)]
                     return
                 }
-                if addresses != nil {
-                    self.addresses = addresses
-                } else {
-                    NSLog("addresses returned is nil")
-                    //self.mapFires()
-                }
+                self.addresses = addresses
                 
             })
         }
@@ -113,31 +110,41 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         
     }
     
+    
+    
+    
+    
     func getFires() {
-        var location: CLLocation
+        var location: CLLocation?
+        var radius: Double?
+        var totalFires: [Fire] = []
+        guard let addresses = addresses else { return }
+    
+        let fireGroup = DispatchGroup()
         
-        if self.addresses == nil {
-            guard let coords = mapView.userLocation?.coordinate else { return }
-            location = CLLocation(latitude: coords.latitude, longitude: coords.latitude)
-        } else {
-            let address = addresses?.first
-            location = CLLocation(latitude: address!.latitude , longitude: address!.longitude)
-        }
-        
-        let getFiresItem = DispatchWorkItem {
-            self.apiController?.checkForFires(location: location, distance: 1000.0, completion: { (fireLocations, error) in
+        for address in addresses {
+            location = CLLocation(latitude: address.latitude, longitude: address.longitude)
+            radius = address.radius
+            
+            fireGroup.enter()
+            self.apiController?.checkForFires(location: location!, distance: radius!, completion: { (firelocations, error) in
                 if let error = error {
                     NSLog("Error fetching fires: \(error)")
                     return
                 }
-                self.fires = fireLocations
                 
+                if let fires = firelocations {
+                    totalFires.append(contentsOf: fires)
+                }
+                fireGroup.leave()
             })
+
         }
-        
-        apiQueue.sync(execute: getFiresItem)
-        
+        fireGroup.notify(queue: apiQueue) { self.fires = totalFires }
+ 
     }
+    
+    
     
     
     func mapFires() {
