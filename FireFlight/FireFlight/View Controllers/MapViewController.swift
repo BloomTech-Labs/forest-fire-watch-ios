@@ -25,7 +25,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
     var fires: [Fire]? {
         didSet {
-            print("Fires: \(fires?.count)")
+            //print("Fires: \(fires?.count)")
             mapFires()
         }
     }
@@ -77,12 +77,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
+    
+    // MARK: - API Calls
     func getUserAddresses() {
         let getAddressesItem = DispatchWorkItem {
             self.apiController?.getAddresses(completion: { (addresses, error) in
                 if let error = error {
                     NSLog("Error getting user addresses: \(error), mapping default address")
-                    //self.addresses = nil
                     
                     self.addresses = [UserAddress(latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 500)]
                     DispatchQueue.main.async {
@@ -104,8 +105,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         apiQueue.sync(execute: getAddressesItem)
         
     }
-    
-    
     
     
     
@@ -141,6 +140,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
+    
+    
+    // MARK: - Mapping Functions
     func mapAddresses() {
         
         guard let addresses = addresses else { return }
@@ -158,7 +160,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             }
         }
     }
-    
     
     
     func mapFires() {
@@ -242,7 +243,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // If there is no reusable annotation image available, initialize a new one.
         if(annotationImage == nil) {
 
-            var image = UIImage(named: "flameIcon")!
+            let image = UIImage(named: "flameIcon")!
             let size = CGSize(width: 40, height: 40)
             UIGraphicsBeginImageContext(size)
             image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
@@ -255,14 +256,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
 
 
-    
-
-    
-    
-    
-    
-    
-    
     
     
 

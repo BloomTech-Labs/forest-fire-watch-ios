@@ -372,9 +372,26 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="250" minValue="10" maxValue="500" translatesAutoresizingMaskIntoConstraints="NO" id="aGe-vH-1Z2">
-                                                <rect key="frame" x="-2" y="23" width="354" height="24.5"/>
-                                            </slider>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Id4-8v-K8N">
+                                                <rect key="frame" x="0.0" y="23" width="350" height="23.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="250 Miles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLd-mo-EFt">
+                                                        <rect key="frame" x="0.0" y="0.0" width="108.5" height="23.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="250" minValue="10" maxValue="500" translatesAutoresizingMaskIntoConstraints="NO" id="aGe-vH-1Z2">
+                                                        <rect key="frame" x="114.5" y="0.0" width="237.5" height="24.5"/>
+                                                        <connections>
+                                                            <action selector="sliderValueChanged:" destination="6Tk-2q-u2M" eventType="valueChanged" id="0Be-LM-Czq"/>
+                                                        </connections>
+                                                    </slider>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="aGe-vH-1Z2" firstAttribute="width" secondItem="Id4-8v-K8N" secondAttribute="width" multiplier="2/3" id="aPj-OU-xgG"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efs-NZ-BOW">
@@ -419,6 +436,7 @@
                         <outlet property="closeButton" destination="djZ-v0-kGT" id="qsr-p1-cqd"/>
                         <outlet property="labelTextField" destination="cFL-VF-DIw" id="eNX-b2-2PA"/>
                         <outlet property="radiusSlider" destination="aGe-vH-1Z2" id="PeN-F8-7R8"/>
+                        <outlet property="sliderValueLabel" destination="DLd-mo-EFt" id="0rN-se-7R8"/>
                         <outlet property="stateTextField" destination="N16-Ok-PRn" id="taV-Cv-UR5"/>
                         <outlet property="streetTextField" destination="PxJ-dk-Rib" id="hNP-6h-tQM"/>
                         <outlet property="zipCodeTextField" destination="9mP-J0-Ux5" id="9H0-ed-Y9n"/>

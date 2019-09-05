@@ -16,11 +16,11 @@ class APIController {
     private let fireURL = URL(string: "https://fire-data-api.herokuapp.com/check_fires")!
     
     
-    var bearer: Bearer? {
+    var bearer: Bearer? /*{
         didSet {
             print(bearer?.token)
         }
-    }
+    }*/
     
     enum HTTPMethod: String {
         case get = "GET"

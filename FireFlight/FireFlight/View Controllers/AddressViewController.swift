@@ -21,6 +21,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBOutlet weak var sliderValueLabel: UILabel!
     @IBOutlet weak var radiusSlider: UISlider!
     @IBOutlet weak var labelTextField: UITextField!
     @IBOutlet weak var closeButton: UIButton!
@@ -36,6 +37,9 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         stylize()
         zipCodeTextField.delegate = self
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
     }
     
     func stylize() {
@@ -77,6 +81,14 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        labelTextField.resignFirstResponder()
+        streetTextField.resignFirstResponder()
+        cityTextField.resignFirstResponder()
+        stateTextField.resignFirstResponder()
+        zipCodeTextField.resignFirstResponder()
     }
     
     
@@ -143,6 +155,9 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        sliderValueLabel.text = "\(Int(radiusSlider.value)) miles"
+    }
     /*
     // MARK: - Navigation
 
