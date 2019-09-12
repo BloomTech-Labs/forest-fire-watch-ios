@@ -1,5 +1,5 @@
 //
-//  AddressViewController.swift
+//  NewAddressViewController.swift
 //  FireFlight
 //
 //  Created by Kobe McKee on 8/26/19.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class AddressViewController: UIViewController, UITextFieldDelegate {
+class NewAddressViewController: UIViewController, UITextFieldDelegate {
 
     var apiController: APIController?
     var addressLabel: String?
@@ -44,6 +44,11 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     
     func stylize() {
         
+        let closeImage = UIImage(named: "closeButton")
+        let tintedImage = closeImage?.withRenderingMode(.alwaysTemplate)
+        closeButton.setImage(tintedImage, for: .normal)
+        closeButton.tintColor = AppearanceHelper.ming
+
         labelTextField.backgroundColor = AppearanceHelper.ming
         labelTextField.textColor = .white
         labelTextField.attributedPlaceholder = NSAttributedString(string: "Label", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightText])

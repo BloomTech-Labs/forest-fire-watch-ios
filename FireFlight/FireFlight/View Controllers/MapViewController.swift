@@ -45,8 +45,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     func setupSideMenu() {
-        let hamburgerButton = UIButton(frame: CGRect(x: 16, y: 16, width: 40, height: 40))
-        hamburgerButton.setImage(UIImage(named: "hamburgerMenu"), for: .normal)
+        let hamburgerButton = UIButton(frame: CGRect(x: view.frame.width / 17, y: view.frame.height / 20, width: 40, height: 40))
+        let hamburgerImage = UIImage(named: "hamburgerMenu")
+        let tintedHamburger = hamburgerImage?.withRenderingMode(.alwaysTemplate)
+        hamburgerButton.setImage(tintedHamburger, for: .normal)
+        hamburgerButton.tintColor = AppearanceHelper.ming
+        
         hamburgerButton.addTarget(self, action: #selector(sideMenuSegue), for: .touchUpInside)
         self.view.addSubview(hamburgerButton)
         
@@ -275,8 +279,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddAddressSegue" {
-            guard let destinationVC = segue.destination as? AddressViewController else { return }
+            guard let destinationVC = segue.destination as? NewAddressViewController else { return }
             destinationVC.apiController = apiController
+        }
+        if segue.identifier == "LogOutSegue" {
+            guard let destinationVC = segue.destination as? LandingPageViewController else { return }
+            
         }
     }
 
