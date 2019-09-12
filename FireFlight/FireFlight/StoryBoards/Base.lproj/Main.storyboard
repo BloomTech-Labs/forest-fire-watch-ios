@@ -299,6 +299,112 @@
             </objects>
             <point key="canvasLocation" x="1406" y="-157"/>
         </scene>
+        <!--Side Menu Navigation Controller-->
+        <scene sceneID="Ug7-qn-Wtf">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="B0t-60-E3v" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XWN-oX-J1s">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="e4D-MZ-sIO" kind="relationship" relationship="rootViewController" id="ev2-Gc-BiI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JHX-Vx-u90" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4093" y="-534"/>
+        </scene>
+        <!--Side Menu View Controller-->
+        <scene sceneID="2gC-K3-DJH">
+            <objects>
+                <viewController id="e4D-MZ-sIO" customClass="SideMenuViewController" customModule="FireFlight" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="74s-c0-FFz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Q2Y-ex-lIe">
+                                <rect key="frame" x="0.0" y="44" width="414" height="231"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar" translatesAutoresizingMaskIntoConstraints="NO" id="rt5-TP-XZb">
+                                        <rect key="frame" x="117.5" y="0.0" width="179" height="179"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="rt5-TP-XZb" secondAttribute="height" multiplier="1:1" id="pJh-a8-dcB"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-1A-n4H">
+                                        <rect key="frame" x="0.0" y="195" width="414" height="36"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <state key="normal" title="Profile">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="profileButtonPressed:" destination="e4D-MZ-sIO" eventType="touchUpInside" id="4gC-98-Lcc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="cZc-1A-n4H" firstAttribute="height" secondItem="rt5-TP-XZb" secondAttribute="height" multiplier="1/5" id="TYP-hi-daG"/>
+                                    <constraint firstItem="cZc-1A-n4H" firstAttribute="leading" secondItem="Q2Y-ex-lIe" secondAttribute="leading" id="scN-IY-9Jv"/>
+                                    <constraint firstAttribute="trailing" secondItem="cZc-1A-n4H" secondAttribute="trailing" id="t9L-3B-1R7"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jOr-K0-3iD">
+                                <rect key="frame" x="0.0" y="291" width="414" height="88"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FK1-bM-ttR">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <state key="normal" title="Saved Addresses">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="savedAddressesButtonPressed:" destination="e4D-MZ-sIO" eventType="touchUpInside" id="EJE-Vx-p8d"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdu-F4-rCp">
+                                        <rect key="frame" x="0.0" y="52" width="414" height="36"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <state key="normal" title="Log Out">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="LogOutButtonPressed:" destination="e4D-MZ-sIO" eventType="touchUpInside" id="oR7-I5-Q2Z"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="tdu-F4-rCp" firstAttribute="height" secondItem="FK1-bM-ttR" secondAttribute="height" id="F4e-P9-iGl"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.3294117647" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="jOr-K0-3iD" firstAttribute="width" secondItem="74s-c0-FFz" secondAttribute="width" id="2fl-pC-1rs"/>
+                            <constraint firstItem="Sld-O2-Emm" firstAttribute="trailing" secondItem="Q2Y-ex-lIe" secondAttribute="trailing" id="Lsz-fW-390"/>
+                            <constraint firstItem="rt5-TP-XZb" firstAttribute="height" secondItem="74s-c0-FFz" secondAttribute="height" multiplier="1/5" id="M4Q-z4-zSa"/>
+                            <constraint firstAttribute="trailing" secondItem="jOr-K0-3iD" secondAttribute="trailing" id="ZKx-FO-Ku8"/>
+                            <constraint firstItem="Q2Y-ex-lIe" firstAttribute="top" secondItem="Sld-O2-Emm" secondAttribute="top" id="e5I-kz-nnI"/>
+                            <constraint firstItem="Q2Y-ex-lIe" firstAttribute="leading" secondItem="Sld-O2-Emm" secondAttribute="leading" id="hbn-JT-qdy"/>
+                            <constraint firstItem="jOr-K0-3iD" firstAttribute="top" secondItem="Q2Y-ex-lIe" secondAttribute="bottom" constant="16" id="tIY-ah-1hX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Sld-O2-Emm"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Lhr-7c-T2t"/>
+                    <connections>
+                        <outlet property="profileImage" destination="rt5-TP-XZb" id="4zq-LW-3IH"/>
+                        <outlet property="profileStackView" destination="Q2Y-ex-lIe" id="EcV-Jt-dlM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OZo-aA-PYb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4954" y="-534"/>
+        </scene>
         <!--Map View Controller-->
         <scene sceneID="AH4-Ji-NGQ">
             <objects>
@@ -311,6 +417,7 @@
                     </view>
                     <connections>
                         <segue destination="6Tk-2q-u2M" kind="presentation" identifier="AddAddressSegue" id="Xzv-Gd-fdr"/>
+                        <segue destination="B0t-60-E3v" kind="show" identifier="ShowSideMenu" id="nmR-Rk-pXX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mB0-Hd-wJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -448,11 +555,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Avatar" width="1280" height="1280"/>
         <image name="closeButton" width="720" height="720"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VsJ-yD-meH"/>
-        <segue reference="Eme-NL-cVL"/>
-        <segue reference="uxS-83-lCZ"/>
+        <segue reference="BrA-pL-GWu"/>
+        <segue reference="uKh-Yh-e1I"/>
+        <segue reference="3yk-0r-evv"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -40,8 +40,17 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         super.viewDidLoad()
         setupMap()
         setupFloaty()
+        setupSideMenu()
     }
     
+    
+    func setupSideMenu() {
+        let hamburgerButton = UIButton(frame: CGRect(x: 16, y: 16, width: 40, height: 40))
+        hamburgerButton.setImage(UIImage(named: "hamburgerMenu"), for: .normal)
+        hamburgerButton.addTarget(self, action: #selector(sideMenuSegue), for: .touchUpInside)
+        self.view.addSubview(hamburgerButton)
+        
+    }
     
     
     
@@ -74,6 +83,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         self.view.addSubview(floaty)
     }
     
+    
+    
+    @objc func sideMenuSegue(sender: UIButton!) {
+        self.performSegue(withIdentifier: "ShowSideMenu", sender: self)
+    }
     
     
     

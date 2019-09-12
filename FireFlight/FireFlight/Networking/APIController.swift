@@ -188,6 +188,7 @@ class APIController {
             
             do {
                 let locations = try JSONDecoder().decode([UserAddress].self, from: data)
+                print(locations)
                 completion(locations, nil)
                 
             } catch {

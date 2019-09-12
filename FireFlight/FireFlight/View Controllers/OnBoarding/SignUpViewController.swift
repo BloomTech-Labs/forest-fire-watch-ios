@@ -29,6 +29,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         stylize()
         
         passwordTextField.delegate = self
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
     }
     
 
@@ -52,16 +55,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         iconImageView.image = UIImage(named: "fireIcon")
         
-        
-        
-        
-        
         let gradient = CAGradientLayer()
         gradient.colors = [AppearanceHelper.macAndCheese.cgColor, AppearanceHelper.begonia.cgColor, AppearanceHelper.turkishRose.cgColor, AppearanceHelper.oldLavender.cgColor, AppearanceHelper.ming.cgColor]
         gradient.frame = view.bounds
         view.layer.insertSublayer(gradient, at: 0)
-        
-        
+
     }
     
     
@@ -106,6 +104,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    
+    @objc func dismissKeyboard(_ sender: UIGestureRecognizer) {
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+    }
     
     
     // MARK: - Navigation
