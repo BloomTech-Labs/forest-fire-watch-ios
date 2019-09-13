@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		234B2B3FD07D1C02936C9336 /* Pods_FireFlightTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E6D960BFD69B883EB4B673 /* Pods_FireFlightTests.framework */; };
 		BDC8E4EE99CAD7A215EEB938 /* Pods_FireFlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127B98F4BA2B5D04DD7253F /* Pods_FireFlight.framework */; };
+		C43287B6232BF34D000B77A2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43287B5232BF34D000B77A2 /* Config.swift */; };
 		C434BC3E230C66E100011769 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434BC3D230C66E100011769 /* SignUpViewController.swift */; };
 		C434BC41230C952800011769 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434BC40230C952800011769 /* APIController.swift */; };
 		C434BC43230C956800011769 /* Bearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434BC42230C956800011769 /* Bearer.swift */; };
@@ -49,6 +50,7 @@
 		5127B98F4BA2B5D04DD7253F /* Pods_FireFlight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireFlight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E6D960BFD69B883EB4B673 /* Pods_FireFlightTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireFlightTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9709178CC145D9DE8043A86A /* Pods-FireFlight.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireFlight.release.xcconfig"; path = "Target Support Files/Pods-FireFlight/Pods-FireFlight.release.xcconfig"; sourceTree = "<group>"; };
+		C43287B5232BF34D000B77A2 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C434BC3D230C66E100011769 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C434BC40230C952800011769 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		C434BC42230C956800011769 /* Bearer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bearer.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				C434BC40230C952800011769 /* APIController.swift */,
+				C43287B5232BF34D000B77A2 /* Config.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				C4A00787230B3B3D00D5A747 /* LandingPageViewController.swift in Sources */,
 				C4A00767230B364A00D5A747 /* AppDelegate.swift in Sources */,
 				C434BC43230C956800011769 /* Bearer.swift in Sources */,
+				C43287B6232BF34D000B77A2 /* Config.swift in Sources */,
 				C47D17DE23148F8200C4088D /* FireResults.swift in Sources */,
 				C434BC4F230DB3AF00011769 /* MapViewController.swift in Sources */,
 				C4B0258F23199C9100E61011 /* CustomPointAnnotation.swift in Sources */,

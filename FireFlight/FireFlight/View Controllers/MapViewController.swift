@@ -282,10 +282,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             guard let destinationVC = segue.destination as? NewAddressViewController else { return }
             destinationVC.apiController = apiController
         }
-        if segue.identifier == "LogOutSegue" {
-            guard let destinationVC = segue.destination as? LandingPageViewController else { return }
-            
-        }
+//        if segue.identifier == "LogOutSegue" {
+//            guard let destinationVC = segue.destination as? LandingPageViewController else { return }
+//
+//        }
     }
 
 

@@ -12,9 +12,6 @@ import CoreLocation
 
 class APIController {
     
-    private let baseURL = URL(string: "https://fireflight-lambda.herokuapp.com/api")!
-    private let fireURL = URL(string: "https://fire-data-api.herokuapp.com/check_fires")!
-    
     
     var bearer: Bearer? /*{
         didSet {
@@ -33,7 +30,7 @@ class APIController {
     // MARK: - Register User
     func registerUser(username: String, password: String, completion: @escaping (Error?, String?) -> Void) {
         
-        let requestURL = baseURL
+        let requestURL = Config.baseURL
             .appendingPathComponent("auth")
             .appendingPathComponent("register")
         
@@ -98,7 +95,7 @@ class APIController {
     
     func loginUser(username: String, password: String, completion: @escaping (Error?, String?) -> Void) {
 
-        let requestURL = baseURL
+        let requestURL = Config.baseURL
             .appendingPathComponent("auth")
             .appendingPathComponent("login")
 
@@ -165,7 +162,7 @@ class APIController {
     
     func getAddresses(completion: @escaping ([UserAddress]?, Error?) -> Void) {
         
-        let requestURL = baseURL
+        let requestURL = Config.baseURL
             .appendingPathComponent("locations")
         
         var request = URLRequest(url: requestURL)
@@ -208,7 +205,7 @@ class APIController {
         let newAddress = UserAddress(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: Double(shownFireRadius))
         print(newAddress)
         
-        let requestURL = baseURL.appendingPathComponent("locations")
+        let requestURL = Config.baseURL.appendingPathComponent("locations")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue(bearer?.token, forHTTPHeaderField: "Authorization")
@@ -241,7 +238,7 @@ class APIController {
     func checkForFires(location: CLLocation, distance: Double, completion: @escaping ([Fire]?, Error?) -> Void) {
         let address = AddressToCheck(coords: [location.coordinate.longitude, location.coordinate.latitude], distance: distance)
         //print(address)
-        let url = fireURL
+        let url = Config.fireURL
         
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.post.rawValue
