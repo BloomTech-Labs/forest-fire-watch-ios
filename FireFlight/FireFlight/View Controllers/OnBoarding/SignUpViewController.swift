@@ -93,6 +93,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             }
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "RegisterToMap", sender: self)
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.registerForPushNotifications()
             }
             
         })
