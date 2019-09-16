@@ -9,6 +9,7 @@
 import UIKit
 import Mapbox
 import Floaty
+import SideMenu
 
 class MapViewController: UIViewController, MGLMapViewDelegate {
 
@@ -38,6 +39,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //getUserAddresses()
         setupMap()
         setupFloaty()
         setupSideMenu()
@@ -282,10 +284,16 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             guard let destinationVC = segue.destination as? NewAddressViewController else { return }
             destinationVC.apiController = apiController
         }
-//        if segue.identifier == "LogOutSegue" {
-//            guard let destinationVC = segue.destination as? LandingPageViewController else { return }
-//
-//        }
+        
+        if segue.identifier == "ShowSideMenu" {
+            guard let destinationNavC = segue.destination as? SideMenuNavigationController,
+                let destinationVC = destinationNavC.topViewController as? SideMenuViewController else { return }
+            
+            destinationVC.apiController = apiController
+        }
+        
+        
+        
     }
 
 

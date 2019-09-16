@@ -12,6 +12,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
     
     var apiController: APIController?
+
     
     
     
@@ -90,13 +91,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 
                 return
             } else if self.apiController?.bearer?.token != "" {
-                DispatchQueue.main.async {
+                DispatchQueue.main.sync {
                     self.performSegue(withIdentifier: "LogInToMap", sender: self)
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.registerForPushNotifications()
                 }
             }
         })
-        
-        
     }
     
     

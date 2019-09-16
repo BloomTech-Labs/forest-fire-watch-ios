@@ -10,6 +10,8 @@ import UIKit
 
 class SideMenuViewController: UIViewController {
 
+    var apiController: APIController?
+    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var profileStackView: UIStackView!
     
@@ -17,12 +19,20 @@ class SideMenuViewController: UIViewController {
         super.viewDidLoad()
 
         profileImage.layer.cornerRadius = 32
-        let gradient = CAGradientLayer()
-        gradient.colors = [AppearanceHelper.macAndCheese.cgColor, AppearanceHelper.begonia.cgColor, AppearanceHelper.turkishRose.cgColor, AppearanceHelper.oldLavender.cgColor, AppearanceHelper.ming.cgColor]
-        gradient.frame = view.bounds
-        view.layer.insertSublayer(gradient, at: 0)
+        view.backgroundColor = AppearanceHelper.ming
+        
+//        let gradient = CAGradientLayer()
+//        gradient.colors = [AppearanceHelper.macAndCheese.cgColor, AppearanceHelper.begonia.cgColor, AppearanceHelper.turkishRose.cgColor, AppearanceHelper.oldLavender.cgColor, AppearanceHelper.ming.cgColor]
+//        gradient.frame = view.bounds
+//        view.layer.insertSublayer(gradient, at: 0)
     }
     
 
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SavedAddressesSegue" {
+            guard let destinationVC = segue.destination as? SavedAddressesViewController else { return }
+            destinationVC.apiController = apiController
+        }
+    }
+    
 }

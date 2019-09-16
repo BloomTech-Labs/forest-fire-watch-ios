@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 
 class APIController {
@@ -18,6 +19,12 @@ class APIController {
             print(bearer?.token)
         }
     }*/
+    var deviceId: String? {
+        didSet {
+            sendDeviceToken(deviceIdString: deviceId!)
+        }
+    }
+       
     
     enum HTTPMethod: String {
         case get = "GET"
@@ -293,10 +300,4 @@ class APIController {
         .resume()
     }
     
-    
-    
-    
-    
-    
-
 }

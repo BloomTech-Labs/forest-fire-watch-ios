@@ -11,7 +11,8 @@ import AVFoundation
 
 class LandingPageViewController: UIViewController {
     
-    let apiController = APIController()
+
+    var apiController: APIController?
     
 
     @IBOutlet weak var iconImageView: UIImageView!
@@ -26,6 +27,9 @@ class LandingPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.apiController = appDelegate.apiController
+        
         setupVideo()
         stylize()
         

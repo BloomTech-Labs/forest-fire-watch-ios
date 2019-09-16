@@ -13,6 +13,13 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var deviceId: String? {
+        didSet {
+            apiController.deviceId = deviceId
+        }
+    }
+    var apiController = APIController()
+    
     
     func registerForPushNotifications() {
         UNUserNotificationCenter.current()
@@ -26,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            print("Notification settings: \(settings)")
+            //print("Notification settings: \(settings)")
             
             guard settings.authorizationStatus == .authorized else { return }
             DispatchQueue.main.async {
@@ -40,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        registerForPushNotifications()
+        //registerForPushNotifications()
         return true
     }
 
@@ -67,10 +74,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     
-    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
+        
+        
+        self.deviceId = token
+        
         print("Device Token: \(token)")
     }
     
