@@ -61,8 +61,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     func setupMap() {
-        let url = URL(string: "mapbox://styles/mapbox/streets-v11")
-        mapView = MGLMapView(frame: view.bounds, styleURL: url)
+        //let url = URL(string: "mapbox://styles/mapbox/streets-v11")
+        mapView = MGLMapView(frame: view.bounds, styleURL: MGLStyle.darkStyleURL)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         //mapView.setCenter(CLLocationCoordinate2D(latitude: 37, longitude: 122), zoomLevel: 12, animated: true)
         view.addSubview(mapView)
@@ -244,7 +244,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
-    func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat { return 0.5 }
+    func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat { return 0.10 }
     
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor { return .red }
     
@@ -333,6 +333,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             guard let destinationNavC = segue.destination as? SideMenuNavigationController,
                 let destinationVC = destinationNavC.topViewController as? SideMenuViewController else { return }
             
+//            let menuManager = SideMenuManager()
+//            menuManager.menuFadeStatusBar = false
+//            destinationNavC.sideMenuManager = menuManager
+    
+            destinationNavC.statusBarEndAlpha = 0
             destinationVC.apiController = apiController
         }
         

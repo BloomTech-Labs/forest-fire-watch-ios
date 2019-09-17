@@ -17,14 +17,17 @@ extension APIController {
         let url = Config.updaterURL
         var request = URLRequest(url: url)
         
-        let token = DeviceToken(deviceId: deviceIdString)
+        let deviceId = DeviceToken(deviceId: deviceIdString)
         
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(bearer?.token, forHTTPHeaderField: "Authorization")
         
+        //print("Bearer: \(bearer?.token)")
+        //print("DeviceId: \(deviceIdString)")
+        
         do {
-            request.httpBody = try JSONEncoder().encode(token)
+            request.httpBody = try JSONEncoder().encode(deviceId)
             
             print(String(decoding: request.httpBody!, as: UTF8.self))
         } catch {

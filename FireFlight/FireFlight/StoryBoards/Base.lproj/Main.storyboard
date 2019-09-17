@@ -315,7 +315,7 @@
         <!--Side Menu Navigation Controller-->
         <scene sceneID="Ug7-qn-Wtf">
             <objects>
-                <navigationController navigationBarHidden="YES" id="B0t-60-E3v" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="B0t-60-E3v" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
