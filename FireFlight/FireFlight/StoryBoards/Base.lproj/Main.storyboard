@@ -149,7 +149,7 @@
                                             <constraint firstAttribute="width" secondItem="O7I-jM-ute" secondAttribute="height" multiplier="1:1" id="gsc-GD-EF8"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8BT-sZ-mJe">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8BT-sZ-mJe">
                                         <rect key="frame" x="0.0" y="105.5" width="293.5" height="73.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="8BT-sZ-mJe" secondAttribute="height" multiplier="4:1" id="vtN-Cb-lQc"/>
@@ -158,7 +158,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Join now to continue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bki-X5-d6e">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Join now to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bki-X5-d6e">
                                         <rect key="frame" x="0.0" y="187" width="293.5" height="37"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -656,7 +656,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="LPE-HK-QlZ"/>
         <segue reference="BrA-pL-GWu"/>
-        <segue reference="uKh-Yh-e1I"/>
+        <segue reference="Eme-NL-cVL"/>
         <segue reference="3yk-0r-evv"/>
     </inferredMetricsTieBreakers>
 </document>
