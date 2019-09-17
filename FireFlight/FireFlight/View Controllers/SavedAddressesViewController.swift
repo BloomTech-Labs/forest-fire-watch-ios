@@ -75,6 +75,8 @@ class SavedAddressesViewController: UIViewController, UITableViewDelegate, UITab
         guard let cell = addressTableView.dequeueReusableCell(withIdentifier: "AddressCell"),
             let address = addresses?[indexPath.row] else { return UITableViewCell() }
         
+
+        cell.selectionStyle = .default
         cell.textLabel?.text = address.label ?? "Address"
         cell.detailTextLabel?.text = address.address
         

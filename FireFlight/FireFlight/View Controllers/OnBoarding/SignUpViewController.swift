@@ -25,11 +25,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         stylize()
-        
         passwordTextField.delegate = self
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
     }
@@ -39,10 +36,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     func stylize() {
         signUpButton.layer.cornerRadius = 10
-
         signUpButton.setTitleColor(AppearanceHelper.ming, for: .normal)
         signUpButton.backgroundColor = .white
-        
         
         usernameTextField.backgroundColor = AppearanceHelper.ming
         usernameTextField.textColor = .white
@@ -51,7 +46,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.backgroundColor = AppearanceHelper.ming
         passwordTextField.textColor = .white
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightText])
-        
         
         iconImageView.image = UIImage(named: "FFLogo2")
         
@@ -73,7 +67,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         } else {
             NSLog("Entered username or password is not valid")
             return
-            
         }
         
         apiController?.registerUser(username: username!, password: password!, completion: { (error, customError) in
@@ -88,7 +81,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     alert.addAction(dimissAction)
                     self.present(alert, animated: true, completion: nil)
                 }
-                
                 return
             }
             DispatchQueue.main.async {
@@ -96,7 +88,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.registerForPushNotifications()
             }
-            
         })
     }
     
@@ -114,8 +105,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     
     // MARK: - Navigation
-
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SignUpToLogIn" {
             guard let destinationVC = segue.destination as? LogInViewController else { return }

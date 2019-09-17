@@ -13,9 +13,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     var apiController: APIController?
 
-    
-    
-    
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -25,9 +22,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         stylize()
-        
         self.passwordTextField.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
@@ -35,8 +30,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
 
-        
-    
     func stylize() {
         
         signInButton.layer.cornerRadius = 10
