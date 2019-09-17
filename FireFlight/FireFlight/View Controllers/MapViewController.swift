@@ -32,6 +32,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
     
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        guard let annotations = mapView.annotations else { return }
+        mapView.removeAnnotations(annotations)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         getUserAddresses()
@@ -43,6 +49,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         setupMap()
         setupFloaty()
         setupSideMenu()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAddresses), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
     }
     
     
@@ -89,7 +98,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         self.view.addSubview(floaty)
     }
     
-    
+    @objc func refreshAddresses() {
+        getUserAddresses()
+    }
     
     @objc func sideMenuSegue(sender: UIButton!) {
         self.performSegue(withIdentifier: "ShowSideMenu", sender: self)

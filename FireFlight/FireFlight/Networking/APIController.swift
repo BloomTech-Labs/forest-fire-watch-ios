@@ -14,11 +14,11 @@ import UIKit
 class APIController {
     
     
-    var bearer: Bearer? /*{
+    var bearer: Bearer? {
         didSet {
             print(bearer?.token)
         }
-    }*/
+    }
     var deviceId: String? {
         didSet {
             sendDeviceToken(deviceIdString: deviceId!)
@@ -265,10 +265,40 @@ class APIController {
                 completion(error)
                 return
             }
+            
+//            if let returnMessage = data {
+//                print(String(decoding: returnMessage, as: UTF8.self))
+//            }
+            
             completion(nil)
         }
         .resume()
     }
+    
+    
+    func deleteAddress(id: Int, completion: @escaping (Error?) -> Void) {
+        
+        let requestURL = Config.baseURL.appendingPathComponent("locations").appendingPathComponent("\(id)")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.delete.rawValue
+        request.setValue(bearer?.token, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                NSLog("Error deleting address: \(error)")
+                completion(error)
+                return
+            }
+            
+//            if let returnMessage = data {
+//                print(String(decoding: returnMessage, as: UTF8.self))
+//            }
+            completion(nil)
+        }
+        .resume()
+        
+    }
+    
     
     
     

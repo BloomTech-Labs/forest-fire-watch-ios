@@ -500,7 +500,7 @@
                     </view>
                     <connections>
                         <segue destination="6Tk-2q-u2M" kind="presentation" identifier="AddAddressSegue" id="Xzv-Gd-fdr"/>
-                        <segue destination="B0t-60-E3v" kind="show" identifier="ShowSideMenu" id="nmR-Rk-pXX"/>
+                        <segue destination="B0t-60-E3v" kind="presentation" identifier="ShowSideMenu" id="nmR-Rk-pXX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mB0-Hd-wJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -654,9 +654,9 @@
         <image name="closeButton" width="720" height="720"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LPE-HK-QlZ"/>
+        <segue reference="Xzv-Gd-fdr"/>
         <segue reference="BrA-pL-GWu"/>
         <segue reference="Eme-NL-cVL"/>
-        <segue reference="3yk-0r-evv"/>
+        <segue reference="uxS-83-lCZ"/>
     </inferredMetricsTieBreakers>
 </document>

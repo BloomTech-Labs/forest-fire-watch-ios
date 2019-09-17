@@ -16,6 +16,15 @@ class SideMenuViewController: UIViewController {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var profileStackView: UIStackView!
     
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(true)
+//        let presentingVC = presentingViewController as! MapViewController
+//        presentingVC.getUserAddresses()
+//        print("getting addresses")
+//
+//    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +35,7 @@ class SideMenuViewController: UIViewController {
         gradient.colors = [AppearanceHelper.macAndCheese.cgColor, AppearanceHelper.begonia.cgColor, AppearanceHelper.turkishRose.cgColor, AppearanceHelper.oldLavender.cgColor, AppearanceHelper.ming.cgColor]
         gradient.frame = view.bounds
         view.layer.insertSublayer(gradient, at: 0)
+        
     }
     
 

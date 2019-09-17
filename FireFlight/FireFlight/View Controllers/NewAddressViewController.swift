@@ -215,7 +215,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         labelTextField.text = address.label ?? ""
         streetTextField.text = addressArray.first ?? ""
-        cityTextField.text = addressArray[1]
+        cityTextField.text = addressArray[1].trimmingCharacters(in: .whitespaces)
         stateTextField.text = stateZipArray?.first ?? ""
         zipCodeTextField.text = stateZipArray?.last ?? ""
         addAddressButton.setTitle("Save Address", for: .normal)

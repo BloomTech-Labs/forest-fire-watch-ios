@@ -60,7 +60,9 @@ class SavedAddressesViewController: UIViewController, UITableViewDelegate, UITab
     
     
     @IBAction func closeButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: {
+            NotificationCenter.default.post(Notification(name: UIApplication.didBecomeActiveNotification))
+        })
     }
     
     
@@ -100,6 +102,25 @@ class SavedAddressesViewController: UIViewController, UITableViewDelegate, UITab
         self.selectedAddress = address
         performSegue(withIdentifier: "EditAddressSegue", sender: self)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            guard let address = addresses?[indexPath.row],
+            let id = address.id else { return }
+            
+            self.addresses?.remove(at: indexPath.row)
+            apiController?.deleteAddress(id: id, completion: { (error) in
+                if let error = error {
+                    NSLog("Error deleting address: \(error)")
+                    return
+                }
+            })
+            
+        }
+    }
+    
+    
     
     
 
