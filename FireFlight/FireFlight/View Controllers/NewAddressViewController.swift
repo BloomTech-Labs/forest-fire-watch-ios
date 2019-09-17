@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Lottie
 
 class NewAddressViewController: UIViewController, UITextFieldDelegate {
 
@@ -30,11 +31,13 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
     
+    @IBOutlet weak var animationView: AnimationView!
     @IBOutlet weak var addAddressButton: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        animationView.isHidden = true
         stylize()
         zipCodeTextField.delegate = self
         
@@ -146,12 +149,29 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         }
         let radius = radiusSlider.value
         
+        addAddressButton.isEnabled = false
         
-        apiController?.postAddress(label: label, address: address, location: location, shownFireRadius: radius)
+        animationView.isHidden = false
+        animationView.animation = Animation.named("loaderMacAndCheese")
+        animationView.loopMode = .loop
+        animationView.play()
         
-        DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
-        }
+        
+        apiController?.postAddress(label: label, address: address, location: location, shownFireRadius: radius, completion: { (error) in
+            if let error = error {
+                NSLog("Error posting address: \(error)")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.animationView.stop()
+                self.animationView.isHidden = true
+                self.addAddressButton.isEnabled = true
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+        })
+
         
     }
     

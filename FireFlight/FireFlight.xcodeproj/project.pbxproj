@@ -35,6 +35,9 @@
 		C4A00787230B3B3D00D5A747 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A00786230B3B3D00D5A747 /* LandingPageViewController.swift */; };
 		C4B0258F23199C9100E61011 /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0258E23199C9100E61011 /* CustomPointAnnotation.swift */; };
 		C4B1B7302330061800AEC177 /* APIController+DataUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1B72F2330061800AEC177 /* APIController+DataUpdater.swift */; };
+		C4B1B7342330491B00AEC177 /* loaderBlack.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B1B7332330491A00AEC177 /* loaderBlack.json */; };
+		C4B1B73623304E0700AEC177 /* loaderFireFlight.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B1B73523304E0600AEC177 /* loaderFireFlight.json */; };
+		C4B1B73823304F1000AEC177 /* loaderMacAndCheese.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B1B73723304F1000AEC177 /* loaderMacAndCheese.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +86,9 @@
 		C4A00786230B3B3D00D5A747 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		C4B0258E23199C9100E61011 /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		C4B1B72F2330061800AEC177 /* APIController+DataUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIController+DataUpdater.swift"; sourceTree = "<group>"; };
+		C4B1B7332330491A00AEC177 /* loaderBlack.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loaderBlack.json; sourceTree = "<group>"; };
+		C4B1B73523304E0600AEC177 /* loaderFireFlight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loaderFireFlight.json; sourceTree = "<group>"; };
+		C4B1B73723304F1000AEC177 /* loaderMacAndCheese.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loaderMacAndCheese.json; sourceTree = "<group>"; };
 		E8D85EC60FF42EDCDD3A24FE /* Pods-FireFlightTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireFlightTests.debug.xcconfig"; path = "Target Support Files/Pods-FireFlightTests/Pods-FireFlightTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FBE05CC8D40E1C5BD423C107 /* Pods-FireFlight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireFlight.debug.xcconfig"; path = "Target Support Files/Pods-FireFlight/Pods-FireFlight.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +238,9 @@
 				C434BC4C230CB8F900011769 /* Helpers */,
 				C434BC3F230C66E600011769 /* View Controllers */,
 				C4624084230B7E3900C5DD2F /* FireFlight-bounce.mp4 */,
+				C4B1B73523304E0600AEC177 /* loaderFireFlight.json */,
+				C4B1B7332330491A00AEC177 /* loaderBlack.json */,
+				C4B1B73723304F1000AEC177 /* loaderMacAndCheese.json */,
 				C4A0076D230B364B00D5A747 /* Assets.xcassets */,
 			);
 			path = FireFlight;
@@ -335,9 +344,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4B1B73823304F1000AEC177 /* loaderMacAndCheese.json in Resources */,
 				C4624085230B7E3900C5DD2F /* FireFlight-bounce.mp4 in Resources */,
+				C4B1B7342330491B00AEC177 /* loaderBlack.json in Resources */,
 				C4A00771230B364B00D5A747 /* LaunchScreen.storyboard in Resources */,
 				C4A0076E230B364B00D5A747 /* Assets.xcassets in Resources */,
+				C4B1B73623304E0700AEC177 /* loaderFireFlight.json in Resources */,
 				C4A0076C230B364A00D5A747 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

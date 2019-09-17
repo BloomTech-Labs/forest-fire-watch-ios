@@ -207,7 +207,7 @@ class APIController {
     
     
     
-    func postAddress(label: String, address: String, location: CLLocation, shownFireRadius: Float) {
+    func postAddress(label: String, address: String, location: CLLocation, shownFireRadius: Float, completion: @escaping (Error?) -> Void) {
         
         let newAddress = UserAddress(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: Double(shownFireRadius))
         print(newAddress)
@@ -224,15 +224,17 @@ class APIController {
             //print(String(decoding: data, as: UTF8.self))
         } catch {
             NSLog("Error encoding")
+            completion(error)
             return
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 NSLog("Error with data task: \(error)")
+                completion(error)
                 return
             }
-   
+            completion(nil)
         }
         .resume()
         

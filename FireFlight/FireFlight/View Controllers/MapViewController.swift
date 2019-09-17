@@ -96,6 +96,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
     
     
+    func mapDefaultAddress() {
+        self.addresses = [UserAddress(latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 500)]
+        DispatchQueue.main.async {
+            let coords = CLLocationCoordinate2D(latitude: 44.4, longitude: -110.5)
+            self.mapView.setCenter(coords, zoomLevel: 3, animated: true)
+        }
+    }
+    
     
     
     // MARK: - API Calls
@@ -104,14 +112,17 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             self.apiController?.getAddresses(completion: { (addresses, error) in
                 if let error = error {
                     NSLog("Error getting user addresses: \(error), mapping default address")
-                    
-                    self.addresses = [UserAddress(latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 500)]
-                    DispatchQueue.main.async {
-                        let coords = CLLocationCoordinate2D(latitude: 44.4, longitude: -110.5)
-                        self.mapView.setCenter(coords, zoomLevel: 3, animated: true)
-                    }
+                    self.mapDefaultAddress()
                     return
                 }
+                
+                if let addresses = addresses {
+                    if addresses.isEmpty {
+                        self.mapDefaultAddress()
+                        return
+                    }
+                }
+                
                 self.addresses = addresses
                 DispatchQueue.main.async {
                     guard let address = self.addresses?.last else { return }
@@ -176,6 +187,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 marker.subtitle = address.address
                 marker.useFireImage = false
                 
+                self.polygonCircleForCoordinate(coordinate: marker.coordinate, withMeterRadius: address.radius * 1609.34)//Converting from miles to meters
+                
                 self.mapView.addAnnotation(marker)
             }
         }
@@ -203,8 +216,39 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
+    func polygonCircleForCoordinate(coordinate: CLLocationCoordinate2D, withMeterRadius: Double) {
+        let degreesBetweenPoints = 8.0
+        //45 sides
+        let numberOfPoints = floor(360.0 / degreesBetweenPoints)
+        let distRadians: Double = withMeterRadius / 6371000.0
+        // earth radius in meters
+        let centerLatRadians: Double = coordinate.latitude * Double.pi / 180
+        let centerLonRadians: Double = coordinate.longitude * Double.pi / 180
+        var coordinates = [CLLocationCoordinate2D]()
+        //array to hold all the points
+        for index in 0 ..< Int(numberOfPoints) {
+            let degrees: Double = Double(index) * Double(degreesBetweenPoints)
+            let degreeRadians: Double = degrees * Double.pi / 180
+            let pointLatRadians: Double = asin(sin(centerLatRadians) * cos(distRadians) + cos(centerLatRadians) * sin(distRadians) * cos(degreeRadians))
+            let pointLonRadians: Double = centerLonRadians + atan2(sin(degreeRadians) * sin(distRadians) * cos(centerLatRadians), cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians))
+            let pointLat: Double = pointLatRadians * 180 / Double.pi
+            let pointLon: Double = pointLonRadians * 180 / Double.pi
+            let point: CLLocationCoordinate2D = CLLocationCoordinate2DMake(pointLat, pointLon)
+            
+            coordinates.append(point)
+        }
+        let polygon = MGLPolygon(coordinates: &coordinates, count: UInt(coordinates.count))
+        
+        self.mapView.addAnnotation(polygon)
+    }
     
     
+    
+    func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat { return 0.5 }
+    
+    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor { return .red }
+    
+    func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor { return .white }
     
     // MARK: - MapBox Functions
     
@@ -226,7 +270,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // Assign a reuse identifier to be used by both of the annotation views, taking advantage of their similarities.
         let reuseIdentifier = "reusableDotView"
         
-        // For better performance, always try to reuse existing annotations.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
         
         // If there’s no reusable annotation view available, initialize a new one.
@@ -274,8 +317,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
 
         return annotationImage
     }
-
-
+    
+    
+    
     
     
 

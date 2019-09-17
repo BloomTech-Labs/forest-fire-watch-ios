@@ -344,7 +344,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Q2Y-ex-lIe">
                                 <rect key="frame" x="0.0" y="60" width="414" height="231"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar" translatesAutoresizingMaskIntoConstraints="NO" id="rt5-TP-XZb">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FireOutlookTower" translatesAutoresizingMaskIntoConstraints="NO" id="rt5-TP-XZb">
                                         <rect key="frame" x="117.5" y="0.0" width="179" height="179"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="rt5-TP-XZb" secondAttribute="height" multiplier="1:1" id="pJh-a8-dcB"/>
@@ -607,14 +607,24 @@
                                     <action selector="closeButtonPressed:" destination="6Tk-2q-u2M" eventType="touchUpInside" id="hHq-Zb-uYa"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJH-U8-N91" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="177" y="754" width="60" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hJH-U8-N91" secondAttribute="height" multiplier="1:1" id="ja4-A2-406"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.3294117647" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="hJH-U8-N91" firstAttribute="top" secondItem="R0U-qF-8MI" secondAttribute="bottom" constant="7.5" id="CXy-Sp-vf8"/>
                             <constraint firstItem="R0U-qF-8MI" firstAttribute="height" secondItem="U5K-Yc-o2I" secondAttribute="height" multiplier="2/3" id="JEj-fC-es7"/>
                             <constraint firstItem="cyI-hR-9Js" firstAttribute="trailing" secondItem="R0U-qF-8MI" secondAttribute="trailing" constant="32" id="NJP-Iv-Mg5"/>
                             <constraint firstItem="R0U-qF-8MI" firstAttribute="leading" secondItem="cyI-hR-9Js" secondAttribute="leading" constant="32" id="POC-mQ-SSS"/>
                             <constraint firstItem="djZ-v0-kGT" firstAttribute="top" secondItem="cyI-hR-9Js" secondAttribute="top" constant="16" id="QHs-NT-AdN"/>
                             <constraint firstItem="R0U-qF-8MI" firstAttribute="centerY" secondItem="U5K-Yc-o2I" secondAttribute="centerY" id="Vdw-XK-ygj"/>
+                            <constraint firstItem="hJH-U8-N91" firstAttribute="centerX" secondItem="cyI-hR-9Js" secondAttribute="centerX" id="lbk-Ze-bwL"/>
+                            <constraint firstItem="hJH-U8-N91" firstAttribute="height" secondItem="R0U-qF-8MI" secondAttribute="height" multiplier="1/10" id="m6c-N8-y82"/>
                             <constraint firstItem="djZ-v0-kGT" firstAttribute="width" secondItem="U5K-Yc-o2I" secondAttribute="width" multiplier="1/15" id="qeI-cF-ed3"/>
                             <constraint firstItem="djZ-v0-kGT" firstAttribute="leading" secondItem="cyI-hR-9Js" secondAttribute="leading" constant="20" id="wlh-5X-S2K"/>
                         </constraints>
@@ -622,6 +632,7 @@
                     </view>
                     <connections>
                         <outlet property="addAddressButton" destination="Efs-NZ-BOW" id="DFg-XI-3Kg"/>
+                        <outlet property="animationView" destination="hJH-U8-N91" id="DoY-EX-cWX"/>
                         <outlet property="cityTextField" destination="Lpg-Iw-vAU" id="bks-tm-k6V"/>
                         <outlet property="closeButton" destination="djZ-v0-kGT" id="qsr-p1-cqd"/>
                         <outlet property="labelTextField" destination="cFL-VF-DIw" id="eNX-b2-2PA"/>
@@ -638,7 +649,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Avatar" width="1280" height="1280"/>
+        <image name="FireOutlookTower" width="574" height="521"/>
         <image name="closeButton" width="720" height="720"/>
     </resources>
     <inferredMetricsTieBreakers>

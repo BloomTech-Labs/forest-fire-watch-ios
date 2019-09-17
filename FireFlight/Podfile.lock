@@ -1,24 +1,28 @@
 PODS:
   - Floaty (4.2.0)
+  - lottie-ios (3.1.2)
   - Mapbox-iOS-SDK (5.2.0)
   - SideMenu (6.2.4)
 
 DEPENDENCIES:
   - Floaty (~> 4.2.0)
+  - lottie-ios
   - Mapbox-iOS-SDK (~> 5.2)
   - SideMenu (~> 6.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Floaty
+    - lottie-ios
     - Mapbox-iOS-SDK
     - SideMenu
 
 SPEC CHECKSUMS:
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
+  lottie-ios: 49cd85b1f24f61a7708ad7ec76a523ab2d0e3100
   Mapbox-iOS-SDK: 3e095b305126d52ba166fe215d847b15b6fbee63
   SideMenu: 60c9be9452d0756c3e723f9e508abb028e138361
 
-PODFILE CHECKSUM: 593e0ac53a8ac1f7d15f683ddc72431168f3e2cd
+PODFILE CHECKSUM: cf5c7cecdb9179f8203a7310ea446cd06667e1ee
 
 COCOAPODS: 1.7.0

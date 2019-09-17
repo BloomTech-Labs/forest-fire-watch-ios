@@ -5,6 +5,7 @@ target 'FireFlight' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+pod 'lottie-ios'
 pod 'Mapbox-iOS-SDK', '~> 5.2'
 pod 'Floaty', '~> 4.2.0'
 pod 'SideMenu', '~> 6.0'
