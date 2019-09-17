@@ -43,7 +43,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         signInButton.setTitleColor(AppearanceHelper.ming, for: .normal)
         signInButton.backgroundColor = .white
         
-        iconImageView.image = UIImage(named: "fireIcon")
+        iconImageView.image = UIImage(named: "FFLogo2")
         
         usernameTextField.backgroundColor = AppearanceHelper.ming
         usernameTextField.textColor = .white

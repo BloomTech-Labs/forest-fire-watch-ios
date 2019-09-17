@@ -10,12 +10,8 @@ import UIKit
 
 class SavedAddressesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var apiController: APIController? {
-        didSet {
-            print(apiController)
-        }
-    }
-    
+    var apiController: APIController?
+    var selectedAddress: UserAddress?
     var addresses: [UserAddress]? {
         didSet {
             updateViews()
@@ -93,23 +89,24 @@ class SavedAddressesViewController: UIViewController, UITableViewDelegate, UITab
                 NSLog("Error gettng user addresses: \(error)")
                 return
             }
-            
             self.addresses = addresses
-            
         })
-        
-        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let address = addresses?[indexPath.row]
+        self.selectedAddress = address
+        performSegue(withIdentifier: "EditAddressSegue", sender: self)
     }
     
     
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "EditAddressSegue" {
+            let destinationVC = segue.destination as! NewAddressViewController
+            destinationVC.apiController = apiController
+            destinationVC.savedAddress = selectedAddress
+        }
     }
-    */
 
 }

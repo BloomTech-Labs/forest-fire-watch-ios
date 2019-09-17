@@ -11,7 +11,9 @@ import CoreLocation
 import Lottie
 
 class NewAddressViewController: UIViewController, UITextFieldDelegate {
-
+    
+    var savedAddress: UserAddress?
+    
     var apiController: APIController?
     var addressLabel: String?
     var addressString: String?
@@ -39,6 +41,9 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         animationView.isHidden = true
         stylize()
+        
+        if savedAddress != nil { importAddress() }
+        
         zipCodeTextField.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
@@ -82,6 +87,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         gradient.colors = [AppearanceHelper.macAndCheese.cgColor, AppearanceHelper.begonia.cgColor, AppearanceHelper.turkishRose.cgColor, AppearanceHelper.oldLavender.cgColor, AppearanceHelper.ming.cgColor]
         gradient.frame = view.bounds
         view.layer.insertSublayer(gradient, at: 0)
+        
     }
     
     
@@ -113,7 +119,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
 
         let addressString = "\(street), \(city), \(formattedState) \(zipCode)"
         
-        self.addressString = street
+        self.addressString = addressString
         
         
         if let label = labelTextField.text {
@@ -156,23 +162,38 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         animationView.loopMode = .loop
         animationView.play()
         
-        
-        apiController?.postAddress(label: label, address: address, location: location, shownFireRadius: radius, completion: { (error) in
-            if let error = error {
-                NSLog("Error posting address: \(error)")
-                return
-            }
+        if let oldAddress = savedAddress {
             
-            DispatchQueue.main.async {
-                self.animationView.stop()
-                self.animationView.isHidden = true
-                self.addAddressButton.isEnabled = true
-                self.dismiss(animated: true, completion: nil)
-            }
+            apiController?.editAddress(id: oldAddress.id ?? 0, label: label, address: address, location: location, shownFireRadius: radius, completion: { (error) in
+                if let error = error {
+                    NSLog("Error editing address: \(error)")
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.animationView.stop()
+                    self.animationView.isHidden = true
+                    self.addAddressButton.isEnabled = true
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
             
-        })
-
-        
+            
+        } else {
+            
+            apiController?.postAddress(label: label, address: address, location: location, shownFireRadius: radius, completion: { (error) in
+                if let error = error {
+                    NSLog("Error posting address: \(error)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.animationView.stop()
+                    self.animationView.isHidden = true
+                    self.addAddressButton.isEnabled = true
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+        }
     }
     
     
@@ -183,6 +204,25 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     @IBAction func sliderValueChanged(_ sender: Any) {
         sliderValueLabel.text = "\(Int(radiusSlider.value)) miles"
     }
+    
+    func importAddress() {
+        guard let address = savedAddress else { return }
+        print(address.address)
+        let addressArray = address.address.components(separatedBy: ",")
+        var stateZipArray = addressArray.last?.components(separatedBy: " ")
+        stateZipArray?.removeFirst()
+        
+        
+        labelTextField.text = address.label ?? ""
+        streetTextField.text = addressArray.first ?? ""
+        cityTextField.text = addressArray[1]
+        stateTextField.text = stateZipArray?.first ?? ""
+        zipCodeTextField.text = stateZipArray?.last ?? ""
+        addAddressButton.setTitle("Save Address", for: .normal)
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
 

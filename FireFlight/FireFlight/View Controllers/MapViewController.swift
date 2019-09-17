@@ -97,7 +97,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     func mapDefaultAddress() {
-        self.addresses = [UserAddress(latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 500)]
+        self.addresses = [UserAddress(id: nil, latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 500)]
         DispatchQueue.main.async {
             let coords = CLLocationCoordinate2D(latitude: 44.4, longitude: -110.5)
             self.mapView.setCenter(coords, zoomLevel: 3, animated: true)

@@ -10,6 +10,7 @@ import Foundation
 
 struct UserAddress: Codable {
     
+    var id: Int?
     var latitude: Double
     var longitude: Double
     var address: String
@@ -17,6 +18,7 @@ struct UserAddress: Codable {
     var radius: Double
     
     enum CodingKeys: String, CodingKey {
+        case id
         case latitude
         case longitude
         case address

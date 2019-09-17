@@ -209,8 +209,8 @@ class APIController {
     
     func postAddress(label: String, address: String, location: CLLocation, shownFireRadius: Float, completion: @escaping (Error?) -> Void) {
         
-        let newAddress = UserAddress(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: Double(shownFireRadius))
-        print(newAddress)
+        let newAddress = UserAddress(id: nil, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: Double(shownFireRadius))
+        //print(newAddress)
         
         let requestURL = Config.baseURL.appendingPathComponent("locations")
         var request = URLRequest(url: requestURL)
@@ -223,14 +223,14 @@ class APIController {
             //guard let data = request.httpBody else { return }
             //print(String(decoding: data, as: UTF8.self))
         } catch {
-            NSLog("Error encoding")
+            NSLog("Error encoding address")
             completion(error)
             return
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
-                NSLog("Error with data task: \(error)")
+                NSLog("Error with posting address: \(error)")
                 completion(error)
                 return
             }
@@ -239,6 +239,38 @@ class APIController {
         .resume()
         
     }
+    
+    
+    func editAddress(id: Int, label: String, address: String, location: CLLocation, shownFireRadius: Float, completion: @escaping (Error?) -> Void) {
+        
+        let editedAddress = UserAddress(id: id, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: Double(shownFireRadius))
+        
+        let requestURL = Config.baseURL.appendingPathComponent("locations").appendingPathComponent("\(id)")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.put.rawValue
+        request.setValue(bearer?.token, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(editedAddress)
+        } catch {
+            NSLog("Error encoding address")
+            completion(error)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                NSLog("Error putting new address: \(error)")
+                completion(error)
+                return
+            }
+            completion(nil)
+        }
+        .resume()
+    }
+    
+    
     
 
     

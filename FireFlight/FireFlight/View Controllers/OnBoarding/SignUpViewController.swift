@@ -53,7 +53,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightText])
         
         
-        iconImageView.image = UIImage(named: "fireIcon")
+        iconImageView.image = UIImage(named: "FFLogo2")
         
         let gradient = CAGradientLayer()
         gradient.colors = [AppearanceHelper.macAndCheese.cgColor, AppearanceHelper.begonia.cgColor, AppearanceHelper.turkishRose.cgColor, AppearanceHelper.oldLavender.cgColor, AppearanceHelper.ming.cgColor]

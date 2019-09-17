@@ -70,7 +70,7 @@ class LandingPageViewController: UIViewController {
         
         joinNowButton.setTitleColor(AppearanceHelper.ming, for: .normal)
         
-        iconImageView.image = UIImage(named: "fireIcon")
+        iconImageView.image = UIImage(named: "FFLogo2")
         
     }
     
