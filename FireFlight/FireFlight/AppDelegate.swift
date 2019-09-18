@@ -74,12 +74,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenParts.joined()
+        let id = tokenParts.joined()
         
         
-        self.deviceId = token
+        self.deviceId = id
         
-        print("Device Token: \(token)")
+        print("Device ID: \(id)")
     }
     
     

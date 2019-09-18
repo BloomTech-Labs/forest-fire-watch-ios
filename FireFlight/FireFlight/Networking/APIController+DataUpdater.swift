@@ -17,7 +17,7 @@ extension APIController {
         let url = Config.updaterURL
         var request = URLRequest(url: url)
         
-        let deviceId = DeviceToken(deviceId: deviceIdString)
+        let token = DeviceToken(deviceId: deviceIdString)
         
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -27,7 +27,7 @@ extension APIController {
         //print("DeviceId: \(deviceIdString)")
         
         do {
-            request.httpBody = try JSONEncoder().encode(deviceId)
+            request.httpBody = try JSONEncoder().encode(token)
             
             print(String(decoding: request.httpBody!, as: UTF8.self))
         } catch {
@@ -35,12 +35,16 @@ extension APIController {
             return
         }
         
-        URLSession.shared.dataTask(with: request) { (_, response, error) in
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             if let error = error {
                 NSLog("Error posting device id: \(error)")
                 return
             }
+            
+//            if let data = data {
+//                print("Data returned: \(String(decoding: data, as: UTF8.self))")
+//            }
             
             print(response)
             
