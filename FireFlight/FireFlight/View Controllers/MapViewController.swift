@@ -50,7 +50,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         setupFloaty()
         setupSideMenu()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshAddresses), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshMap), name: UIApplication.didBecomeActiveNotification, object: nil)
         
     }
     
@@ -71,7 +71,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     func setupMap() {
         //let url = URL(string: "mapbox://styles/mapbox/streets-v11")
-        mapView = MGLMapView(frame: view.bounds, styleURL: MGLStyle.darkStyleURL)
+        mapView = MGLMapView(frame: view.bounds, styleURL: getMapStyle())
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         //mapView.setCenter(CLLocationCoordinate2D(latitude: 37, longitude: 122), zoomLevel: 12, animated: true)
         view.addSubview(mapView)
@@ -94,19 +94,41 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         floaty.buttonColor = AppearanceHelper.ming
         floaty.plusColor = AppearanceHelper.begonia
         
-        
         self.view.addSubview(floaty)
     }
     
-    @objc func refreshAddresses() {
+    func getMapStyle() -> URL {
+        let userDefaults = UserDefaults.standard
+        if userDefaults.bool(forKey: "outdoorStyle") {
+            return MGLStyle.outdoorsStyleURL
+        } else if userDefaults.bool(forKey: "lightStyle") {
+            return MGLStyle.lightStyleURL
+        } else if userDefaults.bool(forKey: "darkStyle") {
+            return MGLStyle.darkStyleURL
+        } else {
+            return MGLStyle.streetsStyleURL
+        }
+    }
+    
+    
+    @objc func refreshMap() {
+        //removing existing views rather than have them stack on top of eachother
+        let viewsToRemove = view.subviews
+        for subView in viewsToRemove {
+            subView.removeFromSuperview()
+        }
+        //refreshing the map/subviews
         getUserAddresses()
+        setupMap()
+        setupFloaty()
+        setupSideMenu()
     }
     
     @objc func sideMenuSegue(sender: UIButton!) {
         self.performSegue(withIdentifier: "ShowSideMenu", sender: self)
     }
     
-    
+    // Default Address is set to Yellowstone National Park
     func mapDefaultAddress() {
         self.addresses = [UserAddress(id: nil, latitude: 44.4, longitude: -110.5, address: "Yellowstone National Park", label: "Yellowstone National Park", radius: 500)]
         DispatchQueue.main.async {
@@ -259,7 +281,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor { return .red }
     
-    func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor { return .white }
+    func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
+        let userDefaults = UserDefaults.standard
+        return userDefaults.bool(forKey: "darkStyle") ? .white : .red
+    }
     
     // MARK: - MapBox Functions
     

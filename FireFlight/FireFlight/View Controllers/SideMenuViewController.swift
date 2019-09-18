@@ -44,6 +44,12 @@ class SideMenuViewController: UIViewController {
             guard let destinationVC = segue.destination as? SavedAddressesViewController else { return }
             destinationVC.apiController = apiController
         }
+        
+        if segue.identifier == "SettingsSegue" {
+            guard let destinationVC = segue.destination as? SettingsViewController else { return }
+            destinationVC.apiController = apiController
+        }
+        
     }
     
 }

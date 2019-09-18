@@ -17,6 +17,7 @@
 		C434BC45230C958200011769 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434BC44230C958200011769 /* User.swift */; };
 		C434BC48230CAA8300011769 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434BC47230CAA8300011769 /* LogInViewController.swift */; };
 		C434BC4F230DB3AF00011769 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434BC4E230DB3AF00011769 /* MapViewController.swift */; };
+		C449BE6D2332C4A100BF1AC8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C449BE6C2332C4A100BF1AC8 /* SettingsViewController.swift */; };
 		C4624085230B7E3900C5DD2F /* FireFlight-bounce.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C4624084230B7E3900C5DD2F /* FireFlight-bounce.mp4 */; };
 		C4624087230B944A00C5DD2F /* AppearanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4624086230B944A00C5DD2F /* AppearanceHelper.swift */; };
 		C476C1F8232AEA36007CF422 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C1F7232AEA36007CF422 /* SideMenuViewController.swift */; };
@@ -62,6 +63,7 @@
 		C434BC47230CAA8300011769 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		C434BC4E230DB3AF00011769 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C43CA16C2327285A00B5BD35 /* FireFlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FireFlight.entitlements; sourceTree = "<group>"; };
+		C449BE6C2332C4A100BF1AC8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C4624084230B7E3900C5DD2F /* FireFlight-bounce.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FireFlight-bounce.mp4"; sourceTree = "<group>"; };
 		C4624086230B944A00C5DD2F /* AppearanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceHelper.swift; sourceTree = "<group>"; };
 		C476C1F7232AEA36007CF422 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				C47D17DF2314B6CB00C4088D /* NewAddressViewController.swift */,
 				C476C1F7232AEA36007CF422 /* SideMenuViewController.swift */,
 				C476C1F9232AFA83007CF422 /* SavedAddressesViewController.swift */,
+				C449BE6C2332C4A100BF1AC8 /* SettingsViewController.swift */,
 				C434BC50230DB3B800011769 /* OnBoarding */,
 			);
 			path = "View Controllers";
@@ -437,6 +440,7 @@
 				C434BC48230CAA8300011769 /* LogInViewController.swift in Sources */,
 				C47D17E423170D0F00C4088D /* AddressToCheck.swift in Sources */,
 				C476C1F8232AEA36007CF422 /* SideMenuViewController.swift in Sources */,
+				C449BE6D2332C4A100BF1AC8 /* SettingsViewController.swift in Sources */,
 				C4624087230B944A00C5DD2F /* AppearanceHelper.swift in Sources */,
 				C47D17E72317226500C4088D /* Fire.swift in Sources */,
 				C434BC41230C952800011769 /* APIController.swift in Sources */,
