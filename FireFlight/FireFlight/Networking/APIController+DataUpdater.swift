@@ -11,9 +11,7 @@ import UIKit
 
 extension APIController {
 
-    
     func sendDeviceToken(deviceIdString: String) {
-        
         let url = Config.updaterURL
         var request = URLRequest(url: url)
         
@@ -23,13 +21,8 @@ extension APIController {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(bearer?.token, forHTTPHeaderField: "Authorization")
         
-        //print("Bearer: \(bearer?.token)")
-        //print("DeviceId: \(deviceIdString)")
-        
         do {
             request.httpBody = try JSONEncoder().encode(token)
-            
-            print(String(decoding: request.httpBody!, as: UTF8.self))
         } catch {
             NSLog("Error encoding device ID")
             return
@@ -42,14 +35,7 @@ extension APIController {
                 return
             }
             
-//            if let data = data {
-//                print("Data returned: \(String(decoding: data, as: UTF8.self))")
-//            }
-            
-            //print(response)
-            
-            }
-        .resume()
+        }.resume()
     }
     
 }

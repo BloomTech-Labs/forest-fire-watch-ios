@@ -15,7 +15,7 @@ struct UserAddress: Codable {
     var longitude: Double
     var address: String
     var label: String?
-    var radius: Double
+    var radius: Int
     
     enum CodingKeys: String, CodingKey {
         case id

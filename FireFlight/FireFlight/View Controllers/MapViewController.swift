@@ -170,7 +170,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         
         for address in addresses {
             location = CLLocation(latitude: address.latitude, longitude: address.longitude)
-            radius = address.radius
+            radius = Double(address.radius)
             
             fireGroup.enter()
             self.apiController?.checkForFires(location: location!, distance: radius!, completion: { (firelocations, error) in
@@ -204,7 +204,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 marker.subtitle = address.address
                 marker.useFireImage = false
                 
-                self.polygonCircleForCoordinate(coordinate: marker.coordinate, withMeterRadius: address.radius * 1609.34)//Converting from miles to meters
+                self.polygonCircleForCoordinate(coordinate: marker.coordinate, withMeterRadius: Double(address.radius) * 1609.34)//Converting from miles to meters
                 
                 self.mapView.addAnnotation(marker)
             }

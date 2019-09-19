@@ -138,7 +138,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
                 NSLog("Address Not Valid")
                 return
         }
-        let radius = radiusSlider.value
+        let radius = Int(radiusSlider.value)
         
         addAddressButton.isEnabled = false
         animationView.isHidden = false
@@ -200,6 +200,8 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         cityTextField.text = addressArray[1].trimmingCharacters(in: .whitespaces)
         stateTextField.text = stateZipArray?.first ?? ""
         zipCodeTextField.text = stateZipArray?.last ?? ""
+        radiusSlider.value = Float(address.radius)
+        sliderValueLabel.text = String(Float(address.radius))
         addAddressButton.setTitle("Save Address", for: .normal)
         
     }
