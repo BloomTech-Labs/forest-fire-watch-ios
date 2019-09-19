@@ -27,6 +27,9 @@ struct FireLocation: Codable {
         throw DecodingError.typeMismatch(FireLocation.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for FireLocation"))
     }
     
+    
+    
+    //TODO: For later implementation of Distance to fire
 //    func encode(to encoder: Encoder) throws {
 //        var container = encoder.singleValueContainer()
 //        switch self {

@@ -17,5 +17,4 @@ struct AddressToCheck: Codable {
         case coords = "user_coords"
         case distance
     }
-    
 }

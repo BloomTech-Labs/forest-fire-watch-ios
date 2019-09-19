@@ -9,30 +9,24 @@
 import UIKit
 import AVFoundation
 
-class LandingPageViewController: UIViewController {
-    
+class LandingPageViewController: UIViewController {    
 
     var apiController: APIController?
     
-
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var joinNowButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     
-    
     var player: AVPlayer!
     var playerLayer: AVPlayerLayer!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.apiController = appDelegate.apiController
-        
+
         setupVideo()
         stylize()
-        
     }
     
 
@@ -64,18 +58,15 @@ class LandingPageViewController: UIViewController {
     }
     
     func stylize() {
-        
         joinNowButton.layer.cornerRadius = 10
         joinNowButton.backgroundColor = .white
         
         joinNowButton.setTitleColor(AppearanceHelper.ming, for: .normal)
-        
         iconImageView.image = UIImage(named: "FFLogo2")
-        
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "LandingToSignUp" {
             guard let destinationVC = segue.destination as? SignUpViewController else { return }
             destinationVC.apiController = apiController
@@ -84,11 +75,5 @@ class LandingPageViewController: UIViewController {
             guard let destinationVC = segue.destination as? LogInViewController else { return }
             destinationVC.apiController = apiController
         }
-  
     }
-    
-
-    
- 
-    
 }

@@ -46,7 +46,7 @@ extension APIController {
 //                print("Data returned: \(String(decoding: data, as: UTF8.self))")
 //            }
             
-            print(response)
+            //print(response)
             
             }
         .resume()

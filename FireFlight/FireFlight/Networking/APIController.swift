@@ -13,18 +13,10 @@ import UIKit
 
 class APIController {
     
-    
-    var bearer: Bearer? {
-        didSet {
-            print(bearer?.token)
-        }
-    }
+    var bearer: Bearer?
     var deviceId: String? {
-        didSet {
-            sendDeviceToken(deviceIdString: deviceId!)
-        }
+        didSet { sendDeviceToken(deviceIdString: deviceId!) }
     }
-       
     
     enum HTTPMethod: String {
         case get = "GET"
@@ -56,7 +48,6 @@ class APIController {
             return
         }
         
-        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             guard let data = data else {
@@ -64,7 +55,6 @@ class APIController {
                 completion(NSError(), nil)
                 return
             }
-            
             
             if let response = response as? HTTPURLResponse,
                 response.statusCode != 201 {
@@ -81,8 +71,6 @@ class APIController {
                 completion(error, nil)
                 return
             }
-            
-   
             
             do {
                 let apiBearer = try JSONDecoder().decode(Bearer.self, from: data)
@@ -108,7 +96,6 @@ class APIController {
 
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.post.rawValue
-
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let user = User(username: username, password: password)
@@ -121,7 +108,6 @@ class APIController {
             return
         }
 
-
         URLSession.shared.dataTask(with: request) { (data, response, error) in
 
             guard let data = data else {
@@ -129,7 +115,6 @@ class APIController {
                 completion(NSError(), nil)
                 return
             }
-            
             
             if let response = response as? HTTPURLResponse,
                 response.statusCode != 200 {
@@ -147,8 +132,6 @@ class APIController {
                 return
             }
 
-
-
             do {
                 let apiBearer = try JSONDecoder().decode(Bearer.self, from: data)
                 self.bearer = apiBearer
@@ -165,7 +148,7 @@ class APIController {
     
     
     
-    
+    // MARK: - Fetch Saved Addresses
     
     func getAddresses(completion: @escaping ([UserAddress]?, Error?) -> Void) {
         
@@ -192,9 +175,7 @@ class APIController {
             
             do {
                 let locations = try JSONDecoder().decode([UserAddress].self, from: data)
-                //print(locations)
                 completion(locations, nil)
-                
             } catch {
                 NSLog("Error decoding addresses: \(error)")
                 completion(nil, error)
@@ -202,15 +183,14 @@ class APIController {
             }
         }
         .resume()
-        
     }
     
     
+    // MARK: - Post new Address
     
     func postAddress(label: String, address: String, location: CLLocation, shownFireRadius: Float, completion: @escaping (Error?) -> Void) {
         
         let newAddress = UserAddress(id: nil, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: Double(shownFireRadius))
-        //print(newAddress)
         
         let requestURL = Config.baseURL.appendingPathComponent("locations")
         var request = URLRequest(url: requestURL)
@@ -220,8 +200,6 @@ class APIController {
         
         do {
             request.httpBody = try JSONEncoder().encode(newAddress)
-            //guard let data = request.httpBody else { return }
-            //print(String(decoding: data, as: UTF8.self))
         } catch {
             NSLog("Error encoding address")
             completion(error)
@@ -235,11 +213,11 @@ class APIController {
                 return
             }
             completion(nil)
-        }
-        .resume()
-        
+        }.resume()
     }
     
+    
+    // MARK: - Edit existing address
     
     func editAddress(id: Int, label: String, address: String, location: CLLocation, shownFireRadius: Float, completion: @escaping (Error?) -> Void) {
         
@@ -265,16 +243,12 @@ class APIController {
                 completion(error)
                 return
             }
-            
-//            if let returnMessage = data {
-//                print(String(decoding: returnMessage, as: UTF8.self))
-//            }
-            
             completion(nil)
-        }
-        .resume()
+        }.resume()
     }
     
+    
+    // MARK: - Delete a saved Address
     
     func deleteAddress(id: Int, completion: @escaping (Error?) -> Void) {
         
@@ -289,26 +263,16 @@ class APIController {
                 completion(error)
                 return
             }
-            
-//            if let returnMessage = data {
-//                print(String(decoding: returnMessage, as: UTF8.self))
-//            }
             completion(nil)
-        }
-        .resume()
-        
+        }.resume()
     }
     
     
-    
-    
-
     
     // MARK: - Fire API
     
     func checkForFires(location: CLLocation, distance: Double, completion: @escaping ([Fire]?, Error?) -> Void) {
         let address = AddressToCheck(coords: [location.coordinate.longitude, location.coordinate.latitude], distance: distance)
-        //print(address)
         let url = Config.fireURL
         
         var request = URLRequest(url: url)
@@ -340,9 +304,7 @@ class APIController {
             var firesArray: [Fire] = []
             do {
                 let results = try JSONDecoder().decode(FireResults.self, from: data)
-                //print(results)
                 let fireLocations = results.fires
-                //print("FireLocations: \(fireLocations)")
                 
                 for fire in fireLocations! {
                     let fire = fire.first
@@ -360,8 +322,7 @@ class APIController {
                 completion(nil, error)
                 return
             }
-        }
-        .resume()
+        }.resume()
     }
     
 }

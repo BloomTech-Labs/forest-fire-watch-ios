@@ -17,11 +17,9 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     var apiController: APIController?
     var addressLabel: String?
     var addressString: String?
+    
     var newLocation: CLLocation? {
-        didSet {
-            //print(newLocation)
-            saveAddress() 
-        }
+        didSet { saveAddress() }
     }
     
     @IBOutlet weak var sliderValueLabel: UILabel!
@@ -43,15 +41,14 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         stylize()
         
         if savedAddress != nil { importAddress() }
-        
         zipCodeTextField.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
     }
     
+    
     func stylize() {
-        
         let closeImage = UIImage(named: "closeButton")
         let tintedImage = closeImage?.withRenderingMode(.alwaysTemplate)
         closeButton.setImage(tintedImage, for: .normal)
@@ -77,19 +74,15 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         zipCodeTextField.textColor = .white
         zipCodeTextField.attributedPlaceholder = NSAttributedString(string: "Zip Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightText])
         
-        
         addAddressButton.layer.cornerRadius = 10
         addAddressButton.setTitleColor(AppearanceHelper.ming, for: .normal)
         addAddressButton.backgroundColor = .white
-        
         
         let gradient = CAGradientLayer()
         gradient.colors = [AppearanceHelper.macAndCheese.cgColor, AppearanceHelper.begonia.cgColor, AppearanceHelper.turkishRose.cgColor, AppearanceHelper.oldLavender.cgColor, AppearanceHelper.ming.cgColor]
         gradient.frame = view.bounds
         view.layer.insertSublayer(gradient, at: 0)
-        
     }
-    
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -106,35 +99,28 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
-    
     @IBAction func addAddressPressed(_ sender: Any) {
-        
         guard let street = streetTextField.text,
             let city = cityTextField.text,
             let state = stateTextField.text,
             let zipCode = zipCodeTextField.text,
             !street.isEmpty, !city.isEmpty, !state.isEmpty, !zipCode.isEmpty else { return }
         let formattedState = state.uppercased()
-
         let addressString = "\(street), \(city), \(formattedState) \(zipCode)"
         
         self.addressString = addressString
-        
-        
+    
         if let label = labelTextField.text {
             self.addressLabel = label
         } else {
             self.addressLabel = street
         }
-        
         convertAddress(addressString: addressString)
     }
     
     
     func convertAddress(addressString: String) {
         let geoCoder = CLGeocoder()
-        
         geoCoder.geocodeAddressString(addressString, completionHandler: {(placemarks, error) -> Void in
             if let error = error {
                 NSLog("Error converting address: \(error)")
@@ -145,7 +131,6 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     
     
     func saveAddress() {
-        
         guard let label = addressLabel,
             let address = addressString,
             let location = newLocation
@@ -156,14 +141,13 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let radius = radiusSlider.value
         
         addAddressButton.isEnabled = false
-        
         animationView.isHidden = false
         animationView.animation = Animation.named("loaderMacAndCheese")
         animationView.loopMode = .loop
         animationView.play()
         
         if let oldAddress = savedAddress {
-            
+    
             apiController?.editAddress(id: oldAddress.id ?? 0, label: label, address: address, location: location, shownFireRadius: radius, completion: { (error) in
                 if let error = error {
                     NSLog("Error editing address: \(error)")
@@ -176,8 +160,6 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
                     self.dismiss(animated: true, completion: nil)
                 }
             })
-            
-            
         } else {
             
             apiController?.postAddress(label: label, address: address, location: location, shownFireRadius: radius, completion: { (error) in
@@ -185,7 +167,6 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
                     NSLog("Error posting address: \(error)")
                     return
                 }
-                
                 DispatchQueue.main.async {
                     self.animationView.stop()
                     self.animationView.isHidden = true
@@ -197,6 +178,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    
     @IBAction func closeButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -205,14 +187,14 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         sliderValueLabel.text = "\(Int(radiusSlider.value)) miles"
     }
     
+    
     func importAddress() {
         guard let address = savedAddress else { return }
         print(address.address)
         let addressArray = address.address.components(separatedBy: ",")
         var stateZipArray = addressArray.last?.components(separatedBy: " ")
         stateZipArray?.removeFirst()
-        
-        
+
         labelTextField.text = address.label ?? ""
         streetTextField.text = addressArray.first ?? ""
         cityTextField.text = addressArray[1].trimmingCharacters(in: .whitespaces)
@@ -221,16 +203,5 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         addAddressButton.setTitle("Save Address", for: .normal)
         
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -23,7 +23,6 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let gradient = CAGradientLayer()
         gradient.colors = [AppearanceHelper.macAndCheese.cgColor, AppearanceHelper.begonia.cgColor, AppearanceHelper.turkishRose.cgColor, AppearanceHelper.oldLavender.cgColor, AppearanceHelper.ming.cgColor]
         gradient.frame = view.bounds
@@ -34,7 +33,6 @@ class SettingsViewController: UIViewController {
     
     
     func updateStyleSwitches() {
-        
         if UserDefaults.standard.bool(forKey: "outdoorStyle") == true {
             defaultStyleSwitch.isOn = false
             outdoorStyleSwitch.isOn = true
@@ -59,8 +57,6 @@ class SettingsViewController: UIViewController {
     }
 
     
-    
-    
     @IBAction func closeButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: {
             NotificationCenter.default.post(Notification(name: UIApplication.didBecomeActiveNotification))
@@ -69,6 +65,7 @@ class SettingsViewController: UIViewController {
     
 
     
+    // MARK: IBActions
     @IBAction func defaultStylePressed(_ sender: Any) {
         let userDefaults = UserDefaults.standard
         userDefaults.set(false, forKey: "outdoorStyle")
@@ -102,14 +99,4 @@ class SettingsViewController: UIViewController {
         updateStyleSwitches()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 struct UserAddress: Codable {
-    
+
     var id: Int?
     var latitude: Double
     var longitude: Double

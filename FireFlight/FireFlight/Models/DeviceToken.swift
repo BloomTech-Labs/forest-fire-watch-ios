@@ -9,7 +9,5 @@
 import Foundation
 
 struct DeviceToken: Codable {
-    
     let deviceId: String
-    
 }

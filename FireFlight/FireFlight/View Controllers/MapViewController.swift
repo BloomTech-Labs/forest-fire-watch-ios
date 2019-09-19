@@ -13,31 +13,30 @@ import SideMenu
 
 class MapViewController: UIViewController, MGLMapViewDelegate {
 
-    
     var apiQueue = DispatchQueue(label: "apiQueue")
     var mapView: MGLMapView!
     var apiController: APIController?
+    
+    var fires: [Fire]? { didSet { mapFires() } }
+    
     var addresses: [UserAddress]? {
         didSet {
-            //print("Addresses: \(addresses)")
             mapAddresses()
              getFires()
         }
     }
-    var fires: [Fire]? {
-        didSet {
-            //print("Fires: \(fires?.count)")
-            mapFires()
-        }
-    }
     
     
+    
+    //End of View Cycle
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         guard let annotations = mapView.annotations else { return }
         mapView.removeAnnotations(annotations)
     }
     
+    
+    //Beginning of View Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         getUserAddresses()
@@ -51,7 +50,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         setupSideMenu()
         
         NotificationCenter.default.addObserver(self, selector: #selector(refreshMap), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
     }
     
     
@@ -64,21 +62,16 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         
         hamburgerButton.addTarget(self, action: #selector(sideMenuSegue), for: .touchUpInside)
         self.view.addSubview(hamburgerButton)
-        
     }
     
     
     
     func setupMap() {
-        //let url = URL(string: "mapbox://styles/mapbox/streets-v11")
         mapView = MGLMapView(frame: view.bounds, styleURL: getMapStyle())
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        //mapView.setCenter(CLLocationCoordinate2D(latitude: 37, longitude: 122), zoomLevel: 12, animated: true)
+
         view.addSubview(mapView)
         mapView.delegate = self
-        
-        //mapView.showsUserLocation = true
-        //mapView.setUserTrackingMode(.none, animated: true, completionHandler: nil)
     }
     
     
@@ -93,7 +86,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         floaty.paddingY = 42
         floaty.buttonColor = AppearanceHelper.ming
         floaty.plusColor = AppearanceHelper.begonia
-        
         self.view.addSubview(floaty)
     }
     
@@ -162,12 +154,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                     let coords = CLLocationCoordinate2D(latitude: address.latitude, longitude: address.longitude)
                     self.mapView.setCenter(coords, zoomLevel: 3, animated: true)
                 }
-                
             })
         }
-        
         apiQueue.sync(execute: getAddressesItem)
-        
     }
     
     
@@ -177,7 +166,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         var radius: Double?
         var totalFires: [Fire] = []
         guard let addresses = addresses else { return }
-    
         let fireGroup = DispatchGroup()
         
         for address in addresses {
@@ -190,16 +178,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                     NSLog("Error fetching fires: \(error)")
                     return
                 }
-                
                 if let fires = firelocations {
                     totalFires.append(contentsOf: fires)
                 }
                 fireGroup.leave()
             })
-
         }
         fireGroup.notify(queue: apiQueue) { self.fires = totalFires }
- 
     }
     
     
@@ -208,7 +193,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     // MARK: - Mapping Functions
     func mapAddresses() {
-        
         guard let addresses = addresses else { return }
         
         DispatchQueue.main.async {
@@ -229,10 +213,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     func mapFires() {
-        //print("FIRES Nearby: \(fires?.count)")
-        
         guard let fires = fires else { return }
-        
         DispatchQueue.main.async {
             
             for fire in fires {
@@ -242,9 +223,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 self.mapView.addAnnotation(fireMarker)
                 
             }
-            
         }
-        
     }
     
     
@@ -312,15 +291,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         if annotationView == nil {
             annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
             
-            
             annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
             annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
             annotationView?.layer.borderWidth = 4.0
             annotationView?.layer.borderColor = UIColor.white.cgColor
             annotationView!.backgroundColor = AppearanceHelper.ming
         }
-        
-        
+
         return annotationView
     }
     
@@ -335,7 +312,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 return nil
             }
         }
-
         // For better performance, always try to reuse existing annotations.
         var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: "fire")
 
@@ -350,7 +326,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
 
             annotationImage = MGLAnnotationImage(image: resizedImage, reuseIdentifier: "fire")
         }
-
         return annotationImage
     }
     
@@ -368,18 +343,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         if segue.identifier == "ShowSideMenu" {
             guard let destinationNavC = segue.destination as? SideMenuNavigationController,
                 let destinationVC = destinationNavC.topViewController as? SideMenuViewController else { return }
-            
-//            let menuManager = SideMenuManager()
-//            menuManager.menuFadeStatusBar = false
-//            destinationNavC.sideMenuManager = menuManager
     
             destinationNavC.statusBarEndAlpha = 0
             destinationVC.apiController = apiController
         }
         
-        
-        
     }
-
-
 }
