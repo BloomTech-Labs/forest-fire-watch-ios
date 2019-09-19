@@ -190,7 +190,6 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     
     func importAddress() {
         guard let address = savedAddress else { return }
-        print(address.address)
         let addressArray = address.address.components(separatedBy: ",")
         var stateZipArray = addressArray.last?.components(separatedBy: " ")
         stateZipArray?.removeFirst()
