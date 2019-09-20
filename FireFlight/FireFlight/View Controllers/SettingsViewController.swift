@@ -28,7 +28,17 @@ class SettingsViewController: UIViewController {
         gradient.frame = view.bounds
         view.layer.insertSublayer(gradient, at: 0)
         
+        stylize()
         updateStyleSwitches()
+    }
+    
+    
+    func stylize() {
+        let closeImage = UIImage(named: "closeButton")
+        let tintedImage = closeImage?.withRenderingMode(.alwaysTemplate)
+        closeButton.setImage(tintedImage, for: .normal)
+        closeButton.tintColor = AppearanceHelper.ming
+        
     }
     
     

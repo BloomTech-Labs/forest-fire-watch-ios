@@ -178,7 +178,6 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
     @IBAction func closeButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -202,7 +201,6 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         radiusSlider.value = Float(address.radius)
         sliderValueLabel.text = String(Float(address.radius))
         addAddressButton.setTitle("Save Address", for: .normal)
-        
     }
 
 }
