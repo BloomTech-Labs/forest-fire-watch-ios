@@ -38,7 +38,7 @@ You can find the deployed project at [fireflightapp.com](fireflightapp.com).
 
 -    User can log in and add multiple addresses. They can also set a distance from that address where the app will provide data about wild fires.
 -    User can see wildfires within the range they set.
--    Application will alert user when  fire is withing their set radius by push notification.
+-    Application will alert user when  fire is within their set radius by push notification.
 
 
 ## Requirements
