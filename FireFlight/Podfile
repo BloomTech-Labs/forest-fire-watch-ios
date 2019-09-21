@@ -9,6 +9,7 @@ pod 'lottie-ios'
 pod 'Mapbox-iOS-SDK', '~> 5.2'
 pod 'Floaty', '~> 4.2.0'
 pod 'SideMenu', '~> 6.0'
+pod 'ReachabilitySwift'
 
   target 'FireFlightTests' do
     inherit! :search_paths

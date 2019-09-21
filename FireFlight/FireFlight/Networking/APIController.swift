@@ -110,6 +110,12 @@ class APIController {
 
         URLSession.shared.dataTask(with: request) { (data, response, error) in
 
+            if let error = error {
+                NSLog("Error signing up user: \(error)")
+                completion(error, nil)
+                return
+            }
+            
             guard let data = data else {
                 NSLog("No bearer token returned")
                 completion(NSError(), nil)
@@ -118,7 +124,7 @@ class APIController {
             
             if let response = response as? HTTPURLResponse,
                 response.statusCode != 200 {
-                NSLog("something went wrong: Error Code: \(response.statusCode)")
+                NSLog("Response code was not 200: Error Code: \(response.statusCode)")
                 
                 let responseError = String(data: data, encoding: String.Encoding.utf8)
                 
@@ -126,11 +132,6 @@ class APIController {
                 return
             }
 
-            if let error = error {
-                NSLog("Error signing up user: \(error)")
-                completion(error, nil)
-                return
-            }
 
             do {
                 let apiBearer = try JSONDecoder().decode(Bearer.self, from: data)
