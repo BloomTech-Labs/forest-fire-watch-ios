@@ -140,11 +140,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         }
         let radius = Int(radiusSlider.value)
         
-        addAddressButton.isEnabled = false
-        animationView.isHidden = false
-        animationView.animation = Animation.named("loaderMacAndCheese")
-        animationView.loopMode = .loop
-        animationView.play()
+        startLoadingAnimation()
         
         if let oldAddress = savedAddress {
     
@@ -154,9 +150,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 DispatchQueue.main.async {
-                    self.animationView.stop()
-                    self.animationView.isHidden = true
-                    self.addAddressButton.isEnabled = true
+                    self.stopLoadingAnimation()
                     self.dismiss(animated: true, completion: nil)
                 }
             })
@@ -168,9 +162,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 DispatchQueue.main.async {
-                    self.animationView.stop()
-                    self.animationView.isHidden = true
-                    self.addAddressButton.isEnabled = true
+                    self.stopLoadingAnimation()
                     self.dismiss(animated: true, completion: nil)
                 }
             })
@@ -186,6 +178,18 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         sliderValueLabel.text = "\(Int(radiusSlider.value)) miles"
     }
     
+    func startLoadingAnimation() {
+        addAddressButton.isEnabled = false
+        animationView.isHidden = false
+        animationView.animation = Animation.named("loaderMacAndCheese")
+        animationView.play()
+    }
+    
+    func stopLoadingAnimation() {
+        addAddressButton.isEnabled = true
+        animationView.isHidden = true
+        animationView.stop()
+    }
     
     func importAddress() {
         guard let address = savedAddress else { return }

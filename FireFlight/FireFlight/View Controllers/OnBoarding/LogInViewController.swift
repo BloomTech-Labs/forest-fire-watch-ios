@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Lottie
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
 
     var apiController: APIController?
 
+    @IBOutlet weak var animationView: AnimationView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -29,6 +31,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
 
     func stylize() {
+        animationView.backgroundColor = .clear
+        
         signInButton.layer.cornerRadius = 10
         signInButton.setTitleColor(AppearanceHelper.ming, for: .normal)
         signInButton.backgroundColor = .white
@@ -61,6 +65,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         let formattedUsername = username.trimmingCharacters(in: .whitespaces)/*.uppercased()*/
         let formattedPassword = password.trimmingCharacters(in: .whitespaces)/*.uppercased()*/
 
+        startLoadingAnimation()
+        
         apiController?.loginUser(username: formattedUsername, password: formattedPassword, completion: { (error, customError) in
             if let error = error {
                 NSLog("Error logging in user: \(error)")
@@ -68,6 +74,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             } else if let customError = customError {
                 NSLog(customError)
                 DispatchQueue.main.async {
+                    self.stopLoadingAnimation()
+                    
                     let alert = UIAlertController(title: "Error Logging In", message: customError, preferredStyle: .alert)
                     let dimissAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                     alert.addAction(dimissAction)
@@ -76,6 +84,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 return
             } else if self.apiController?.bearer?.token != "" {
                 DispatchQueue.main.sync {
+                    self.stopLoadingAnimation()
+                    
                     self.performSegue(withIdentifier: "LogInToMap", sender: self)
                     
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -93,6 +103,19 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @objc func dismissKeyboard(_ sender: UIGestureRecognizer) {
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+    }
+    
+    func startLoadingAnimation() {
+        signInButton.isEnabled = false
+        animationView.isHidden = false
+        animationView.animation = Animation.named("loaderMacAndCheese")
+        animationView.play()
+    }
+    
+    func stopLoadingAnimation() {
+        signInButton.isEnabled = true
+        animationView.isHidden = true
+        animationView.stop()
     }
 
      //MARK: - Navigation

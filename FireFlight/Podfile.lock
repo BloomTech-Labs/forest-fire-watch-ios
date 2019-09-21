@@ -1,8 +1,8 @@
 PODS:
   - Floaty (4.2.0)
-  - lottie-ios (3.1.2)
-  - Mapbox-iOS-SDK (5.2.0)
-  - SideMenu (6.2.4)
+  - lottie-ios (3.1.3)
+  - Mapbox-iOS-SDK (5.3.2)
+  - SideMenu (6.3.1)
 
 DEPENDENCIES:
   - Floaty (~> 4.2.0)
@@ -19,9 +19,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
-  lottie-ios: 49cd85b1f24f61a7708ad7ec76a523ab2d0e3100
-  Mapbox-iOS-SDK: 3e095b305126d52ba166fe215d847b15b6fbee63
-  SideMenu: 60c9be9452d0756c3e723f9e508abb028e138361
+  lottie-ios: 496ac5cea1bbf1a7bd1f1f472f3232eb1b8d744b
+  Mapbox-iOS-SDK: 23c20a5da344234cafba5d13669af3f8bde8beaa
+  SideMenu: 8c67753662a891321bb646b03fca9f132ae5433a
 
 PODFILE CHECKSUM: cf5c7cecdb9179f8203a7310ea446cd06667e1ee
 

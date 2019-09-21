@@ -10,6 +10,8 @@ import UIKit
 import Mapbox
 import Floaty
 import SideMenu
+import Lottie
+
 
 class MapViewController: UIViewController, MGLMapViewDelegate {
 
@@ -26,7 +28,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         }
     }
     
-    
+    @IBOutlet weak var animationView: AnimationView!
     
     //End of View Cycle
     override func viewDidDisappear(_ animated: Bool) {
@@ -44,14 +46,17 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //getUserAddresses()
         setupMap()
         setupFloaty()
         setupSideMenu()
+        setupAnimationView()
+        DispatchQueue.main.async { self.startLoadingAnimation() }
         
         NotificationCenter.default.addObserver(self, selector: #selector(refreshMap), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
+    
+    // MARK: - Set up
     
     func setupSideMenu() {
         let hamburgerButton = UIButton(frame: CGRect(x: view.frame.width / 17, y: view.frame.height / 20, width: 40, height: 40))
@@ -64,14 +69,17 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         self.view.addSubview(hamburgerButton)
     }
     
-    
-    
+
     func setupMap() {
         mapView = MGLMapView(frame: view.bounds, styleURL: getMapStyle())
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         view.addSubview(mapView)
         mapView.delegate = self
+    }
+    
+    func setupAnimationView() {
+        view.addSubview(animationView)
     }
     
     
@@ -106,14 +114,25 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     @objc func refreshMap() {
         //removing existing views rather than have them stack on top of eachother
         let viewsToRemove = view.subviews
-        for subView in viewsToRemove {
-            subView.removeFromSuperview()
-        }
+        for subView in viewsToRemove { subView.removeFromSuperview() }
         //refreshing the map/subviews
         getUserAddresses()
         setupMap()
         setupFloaty()
         setupSideMenu()
+    }
+    
+    func startLoadingAnimation() {
+        guard animationView != nil else { return }
+        animationView.isHidden = false
+        animationView.animation = Animation.named("loaderMacAndCheese")
+        animationView.play()
+    }
+
+    func stopLoadingAnimation() {
+        guard animationView != nil else { return }
+        animationView.isHidden = true
+        animationView.stop()
     }
     
     @objc func sideMenuSegue(sender: UIButton!) {
@@ -135,6 +154,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     func getUserAddresses() {
         let getAddressesItem = DispatchWorkItem {
             self.apiController?.getAddresses(completion: { (addresses, error) in
+                //defer { DispatchQueue.main.async { self.stopLoadingAnimation() } }
+                
                 if let error = error {
                     NSLog("Error getting user addresses: \(error), mapping default address")
                     self.mapDefaultAddress()
@@ -150,9 +171,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 
                 self.addresses = addresses
                 DispatchQueue.main.async {
+                    self.stopLoadingAnimation()
                     guard let address = self.addresses?.last else { return }
                     let coords = CLLocationCoordinate2D(latitude: address.latitude, longitude: address.longitude)
                     self.mapView.setCenter(coords, zoomLevel: 3, animated: true)
+                    self.startLoadingAnimation()
                 }
             })
         }
@@ -174,6 +197,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
             
             fireGroup.enter()
             self.apiController?.checkForFires(location: location!, distance: radius!, completion: { (firelocations, error) in
+                defer { DispatchQueue.main.async { self.stopLoadingAnimation() } }
+                
                 if let error = error {
                     NSLog("Error fetching fires: \(error)")
                     return
@@ -256,6 +281,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
+    // MARK: - MapBox Functions
+    
     func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat { return 0.10 }
     
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor { return .red }
@@ -265,14 +292,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         return userDefaults.bool(forKey: "darkStyle") ? .white : .red
     }
     
-    // MARK: - MapBox Functions
-    
     //Allow callout view to appear when annotation is tapped
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
     }
-    
-    
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         
@@ -300,8 +323,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
 
         return annotationView
     }
-    
-    
     
     
 //     This delegate method is where you tell the map to load an image for a specific annotation based on the userFireImage property of the custom subclass.
@@ -332,7 +353,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     
-    
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddAddressSegue" {

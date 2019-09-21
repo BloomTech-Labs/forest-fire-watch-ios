@@ -7,20 +7,20 @@
 //
 
 import UIKit
+import Lottie
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     
 
     var apiController: APIController?
     
+    @IBOutlet weak var animationView: AnimationView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
-    
     
     
     override func viewDidLoad() {
@@ -32,9 +32,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
 
-    
-    
     func stylize() {
+        animationView.backgroundColor = .clear
+        
         signUpButton.layer.cornerRadius = 10
         signUpButton.setTitleColor(AppearanceHelper.ming, for: .normal)
         signUpButton.backgroundColor = .white
@@ -69,6 +69,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        startLoadingAnimation()
+        
         apiController?.registerUser(username: username!, password: password!, completion: { (error, customError) in
             if let error = error {
                 NSLog("Error registering user: \(error)")
@@ -76,6 +78,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             } else if let customError = customError {
                 NSLog(customError)
                 DispatchQueue.main.async {
+                    self.stopLoadingAnimation()
                     let alert = UIAlertController(title: "Error Logging In", message: customError, preferredStyle: .alert)
                     let dimissAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                     alert.addAction(dimissAction)
@@ -83,7 +86,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 }
                 return
             }
+            
             DispatchQueue.main.async {
+                self.stopLoadingAnimation()
                 self.performSegue(withIdentifier: "RegisterToMap", sender: self)
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.registerForPushNotifications()
@@ -102,6 +107,20 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
+    
+    func startLoadingAnimation() {
+        signUpButton.isEnabled = false
+        animationView.isHidden = false
+        animationView.animation = Animation.named("loaderMacAndCheese")
+        animationView.play()
+    }
+    
+    func stopLoadingAnimation() {
+        signUpButton.isEnabled = true
+        animationView.isHidden = true
+        animationView.stop()
+    }
+    
     
     
     // MARK: - Navigation
