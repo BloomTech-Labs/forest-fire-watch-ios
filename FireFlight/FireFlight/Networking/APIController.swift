@@ -10,7 +10,6 @@ import Foundation
 import CoreLocation
 import UIKit
 
-
 class APIController {
     
     var bearer: Bearer?
@@ -24,6 +23,7 @@ class APIController {
         case post = "POST"
         case delete = "DELETE"
     }
+    
     
     
     // MARK: - Register User

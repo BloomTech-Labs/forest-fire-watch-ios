@@ -12,6 +12,7 @@ import AVFoundation
 class LandingPageViewController: UIViewController {    
 
     var apiController: APIController?
+    let network: NetworkManager = NetworkManager.sharedInstance
     
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var joinNowButton: UIButton!
@@ -27,6 +28,13 @@ class LandingPageViewController: UIViewController {
 
         setupVideo()
         stylize()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NetworkManager.isUnreachable { _ in
+            self.showOfflineView()
+        }
     }
     
 
@@ -63,6 +71,11 @@ class LandingPageViewController: UIViewController {
         
         joinNowButton.setTitleColor(AppearanceHelper.ming, for: .normal)
         iconImageView.image = UIImage(named: "FFLogo2")
+    }
+    
+    
+    func showOfflineView() {
+        performSegue(withIdentifier: "NetworkUnavailable", sender: self)
     }
     
     

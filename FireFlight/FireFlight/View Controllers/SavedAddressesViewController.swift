@@ -12,6 +12,7 @@ class SavedAddressesViewController: UIViewController, UITableViewDelegate, UITab
     
     var apiController: APIController?
     var selectedAddress: UserAddress?
+    let network = NetworkManager.sharedInstance
     
     var addresses: [UserAddress]? {
         didSet { updateViews() }
@@ -31,6 +32,13 @@ class SavedAddressesViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         getAddresses()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NetworkManager.isUnreachable { _ in
+            self.performSegue(withIdentifier: "NetworkUnavailable", sender: self)
+        }
     }
     
     func updateViews() {

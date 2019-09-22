@@ -13,7 +13,7 @@ import Lottie
 class NewAddressViewController: UIViewController, UITextFieldDelegate {
     
     var savedAddress: UserAddress?
-    
+    let network = NetworkManager.sharedInstance
     var apiController: APIController?
     var addressLabel: String?
     var addressString: String?
@@ -45,6 +45,13 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NetworkManager.isUnreachable { _ in
+            self.performSegue(withIdentifier: "NetworkUnavailable", sender: self)
+        }
     }
     
     
@@ -182,6 +189,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         addAddressButton.isEnabled = false
         animationView.isHidden = false
         animationView.animation = Animation.named("loaderMacAndCheese")
+        animationView.loopMode = .loop
         animationView.play()
     }
     

@@ -20,6 +20,8 @@
 		C449BE6D2332C4A100BF1AC8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C449BE6C2332C4A100BF1AC8 /* SettingsViewController.swift */; };
 		C4624085230B7E3900C5DD2F /* FireFlight-bounce.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C4624084230B7E3900C5DD2F /* FireFlight-bounce.mp4 */; };
 		C4624087230B944A00C5DD2F /* AppearanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4624086230B944A00C5DD2F /* AppearanceHelper.swift */; };
+		C46738732338150C002E3345 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46738722338150C002E3345 /* NetworkManager.swift */; };
+		C467387523381A64002E3345 /* OfflineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467387423381A64002E3345 /* OfflineViewController.swift */; };
 		C476C1F8232AEA36007CF422 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C1F7232AEA36007CF422 /* SideMenuViewController.swift */; };
 		C476C1FA232AFA83007CF422 /* SavedAddressesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C1F9232AFA83007CF422 /* SavedAddressesViewController.swift */; };
 		C47D17DC23148F4F00C4088D /* FireLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D17DB23148F4F00C4088D /* FireLocation.swift */; };
@@ -66,6 +68,8 @@
 		C449BE6C2332C4A100BF1AC8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C4624084230B7E3900C5DD2F /* FireFlight-bounce.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FireFlight-bounce.mp4"; sourceTree = "<group>"; };
 		C4624086230B944A00C5DD2F /* AppearanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceHelper.swift; sourceTree = "<group>"; };
+		C46738722338150C002E3345 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C467387423381A64002E3345 /* OfflineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineViewController.swift; sourceTree = "<group>"; };
 		C476C1F7232AEA36007CF422 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		C476C1F9232AFA83007CF422 /* SavedAddressesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAddressesViewController.swift; sourceTree = "<group>"; };
 		C47D17DB23148F4F00C4088D /* FireLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireLocation.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 				C476C1F7232AEA36007CF422 /* SideMenuViewController.swift */,
 				C476C1F9232AFA83007CF422 /* SavedAddressesViewController.swift */,
 				C449BE6C2332C4A100BF1AC8 /* SettingsViewController.swift */,
+				C467387423381A64002E3345 /* OfflineViewController.swift */,
 				C434BC50230DB3B800011769 /* OnBoarding */,
 			);
 			path = "View Controllers";
@@ -163,6 +168,7 @@
 			children = (
 				C434BC40230C952800011769 /* APIController.swift */,
 				C4B1B72F2330061800AEC177 /* APIController+DataUpdater.swift */,
+				C46738722338150C002E3345 /* NetworkManager.swift */,
 				C43287B5232BF34D000B77A2 /* Config.swift */,
 			);
 			path = Networking;
@@ -430,6 +436,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C467387523381A64002E3345 /* OfflineViewController.swift in Sources */,
+				C46738732338150C002E3345 /* NetworkManager.swift in Sources */,
 				C47D17DC23148F4F00C4088D /* FireLocation.swift in Sources */,
 				C4A00787230B3B3D00D5A747 /* LandingPageViewController.swift in Sources */,
 				C4A00767230B364A00D5A747 /* AppDelegate.swift in Sources */,

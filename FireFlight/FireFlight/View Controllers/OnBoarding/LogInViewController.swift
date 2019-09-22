@@ -12,6 +12,7 @@ import Lottie
 class LogInViewController: UIViewController, UITextFieldDelegate {
 
     var apiController: APIController?
+    let network = NetworkManager.sharedInstance
 
     @IBOutlet weak var animationView: AnimationView!
     @IBOutlet weak var iconImageView: UIImageView!
@@ -27,6 +28,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NetworkManager.isUnreachable { _ in
+            self.performSegue(withIdentifier: "NetworkUnavailable", sender: self)
+        }
     }
     
 
@@ -109,6 +117,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         signInButton.isEnabled = false
         animationView.isHidden = false
         animationView.animation = Animation.named("loaderMacAndCheese")
+        animationView.loopMode = .loop
         animationView.play()
     }
     

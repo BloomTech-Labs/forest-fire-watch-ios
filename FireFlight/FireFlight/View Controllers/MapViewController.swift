@@ -18,6 +18,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     var apiQueue = DispatchQueue(label: "apiQueue")
     var mapView: MGLMapView!
     var apiController: APIController?
+    let networ = NetworkManager.sharedInstance
     
     var fires: [Fire]? { didSet { mapFires() } }
     
@@ -46,6 +47,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NetworkManager.isUnreachable { _ in
+            self.showOfflineView()
+        }
+        
         setupMap()
         setupFloaty()
         setupSideMenu()
@@ -53,6 +58,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         DispatchQueue.main.async { self.startLoadingAnimation() }
         
         NotificationCenter.default.addObserver(self, selector: #selector(refreshMap), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NetworkManager.isUnreachable { _ in
+            self.performSegue(withIdentifier: "NetworkUnavailable", sender: self)
+        }
     }
     
     
@@ -126,6 +138,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         guard animationView != nil else { return }
         animationView.isHidden = false
         animationView.animation = Animation.named("loaderMacAndCheese")
+        animationView.loopMode = .loop
         animationView.play()
     }
 
@@ -135,9 +148,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         animationView.stop()
     }
     
-    @objc func sideMenuSegue(sender: UIButton!) {
-        self.performSegue(withIdentifier: "ShowSideMenu", sender: self)
-    }
     
     // Default Address is set to Yellowstone National Park
     func mapDefaultAddress() {
@@ -354,7 +364,17 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     
     // MARK: - Navigation
+    
+    func showOfflineView() {
+        self.performSegue(withIdentifier: "NetworkUnavailable", sender: self)
+    }
+    
+    
+    @objc func sideMenuSegue(sender: UIButton!) {
+        self.performSegue(withIdentifier: "ShowSideMenu", sender: self)
+    }
 
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddAddressSegue" {
             guard let destinationVC = segue.destination as? NewAddressViewController else { return }

@@ -13,6 +13,7 @@ class SettingsViewController: UIViewController {
 
     var apiController: APIController?
     var notificationEnabled: Bool?
+    let network = NetworkManager.sharedInstance
     
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var defaultStyleSwitch: UISwitch!
@@ -30,6 +31,13 @@ class SettingsViewController: UIViewController {
         
         stylize()
         updateStyleSwitches()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NetworkManager.isUnreachable { _ in
+            self.performSegue(withIdentifier: "NetworkUnavailable", sender: self)
+        }
     }
     
     
