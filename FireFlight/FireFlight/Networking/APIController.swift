@@ -274,7 +274,7 @@ class APIController {
     
     func checkForFires(location: CLLocation, distance: Double, completion: @escaping ([Fire]?, Error?) -> Void) {
         let address = AddressToCheck(coords: [location.coordinate.longitude, location.coordinate.latitude], distance: distance)
-        let url = Config.fireURL
+        let url = Config.fireURL.appendingPathComponent("check_fires")
         
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.post.rawValue
@@ -304,6 +304,7 @@ class APIController {
             
             var firesArray: [Fire] = []
             do {
+                
                 let results = try JSONDecoder().decode(FireResults.self, from: data)
                 let fireLocations = results.fires
                 

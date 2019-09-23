@@ -19,10 +19,10 @@ struct FireLocation: Codable {
         if let x = try? container.decode([Double].self) {
             coords = x
             return
-        } /*else if let x = try? container.decode(Double.self) {
+        } else if let x = try? container.decode(Double.self) {
             //distance = x
             return
-        }*/
+        }
         throw DecodingError.typeMismatch(FireLocation.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for FireLocation"))
         
     }
