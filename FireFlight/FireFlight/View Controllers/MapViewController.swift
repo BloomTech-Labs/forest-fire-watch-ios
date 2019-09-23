@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     var apiQueue = DispatchQueue(label: "apiQueue")
     var mapView: MGLMapView!
     var apiController: APIController?
-    let networ = NetworkManager.sharedInstance
+    let network = NetworkManager.sharedInstance
     
     var fires: [Fire]? { didSet { mapFires() } }
     

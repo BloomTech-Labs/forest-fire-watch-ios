@@ -170,7 +170,9 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
                 }
                 DispatchQueue.main.async {
                     self.stopLoadingAnimation()
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true) {
+                        NotificationCenter.default.post(Notification(name: UIApplication.didBecomeActiveNotification))
+                    }
                 }
             })
         }
