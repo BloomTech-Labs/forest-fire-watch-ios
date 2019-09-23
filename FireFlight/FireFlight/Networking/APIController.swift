@@ -38,7 +38,7 @@ class APIController {
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let user = User(username: username, password: password)
+        let user = User(username: username, password: password, receivePush: true)
         
         do {
             request.httpBody = try JSONEncoder().encode(user)
@@ -98,7 +98,7 @@ class APIController {
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let user = User(username: username, password: password)
+        let user = User(username: username, password: password, receivePush: true)
 
         do {
             request.httpBody = try JSONEncoder().encode(user)
@@ -191,7 +191,7 @@ class APIController {
     
     func postAddress(label: String, address: String, location: CLLocation, shownFireRadius: Int, completion: @escaping (Error?) -> Void) {
         
-        let newAddress = UserAddress(id: nil, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: shownFireRadius)
+        let newAddress = UserAddress(id: nil, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: shownFireRadius, notifications: true)
         
         let requestURL = Config.baseURL.appendingPathComponent("locations")
         var request = URLRequest(url: requestURL)
@@ -222,7 +222,7 @@ class APIController {
     
     func editAddress(id: Int, label: String, address: String, location: CLLocation, shownFireRadius: Int, completion: @escaping (Error?) -> Void) {
         
-        let editedAddress = UserAddress(id: id, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: shownFireRadius)
+        let editedAddress = UserAddress(id: id, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, address: address, label: label, radius: shownFireRadius, notifications: true)
         
         let requestURL = Config.baseURL.appendingPathComponent("locations").appendingPathComponent("\(id)")
         var request = URLRequest(url: requestURL)

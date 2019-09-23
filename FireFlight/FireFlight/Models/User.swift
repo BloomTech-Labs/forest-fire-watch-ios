@@ -11,4 +11,12 @@ import Foundation
 struct User: Codable {
     let username: String
     let password: String
+    var receivePush: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case username
+        case password
+        case receivePush = "receive_push"
+    }
+    
 }

@@ -16,6 +16,7 @@ struct UserAddress: Codable {
     var address: String
     var label: String?
     var radius: Int
+    var notifications: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -24,6 +25,7 @@ struct UserAddress: Codable {
         case address
         case label = "address_label"
         case radius
+        case notifications
     }
     
 }
