@@ -121,7 +121,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="00u-2c-G6p" kind="show" identifier="SignUpToLogIn" id="Eme-NL-cVL"/>
+                                    <segue destination="00u-2c-G6p" kind="showDetail" identifier="SignUpToLogIn" id="Eme-NL-cVL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJL-bh-wg5">
@@ -198,6 +198,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tb5-2G-cc9"/>
                     </view>
+                    <navigationItem key="navigationItem" id="1aP-mF-ImN"/>
                     <connections>
                         <outlet property="animationView" destination="RoM-Zu-m8r" id="AoR-ga-Msr"/>
                         <outlet property="iconImageView" destination="O7I-jM-ute" id="9hi-wU-KYG"/>
@@ -285,7 +286,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="8jv-Zz-Ki5" kind="show" identifier="LogInToSignUp" id="uxS-83-lCZ"/>
+                                    <segue destination="8jv-Zz-Ki5" kind="showDetail" identifier="LogInToSignUp" id="uxS-83-lCZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Omg-xY-fpc">
@@ -357,6 +358,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="itM-G3-f0a"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Zua-we-q9G"/>
                     <connections>
                         <outlet property="animationView" destination="tKj-OM-Jac" id="LNZ-zj-ZT6"/>
                         <outlet property="iconImageView" destination="KTo-lS-y64" id="802-5l-GHB"/>
@@ -739,6 +741,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yOP-VV-pLE"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Ads-lK-zY2"/>
                     <connections>
                         <outlet property="animationView" destination="SRf-dB-a8a" id="dtL-JQ-ZtZ"/>
                         <segue destination="6Tk-2q-u2M" kind="presentation" identifier="AddAddressSegue" id="Xzv-Gd-fdr"/>
@@ -901,7 +904,7 @@
         <segue reference="LPE-HK-QlZ"/>
         <segue reference="VsJ-yD-meH"/>
         <segue reference="Eme-NL-cVL"/>
-        <segue reference="jOJ-WN-Cda"/>
+        <segue reference="qKZ-PP-jD8"/>
         <segue reference="uxS-83-lCZ"/>
     </inferredMetricsTieBreakers>
 </document>
