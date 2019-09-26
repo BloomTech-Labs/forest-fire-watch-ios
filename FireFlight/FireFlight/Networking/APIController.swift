@@ -52,7 +52,7 @@ class APIController {
             
             guard let data = data else {
                 NSLog("No bearer token returned")
-                completion(NSError(), nil)
+                completion(NSError(domain: "No data returned", code: 001, userInfo: [NSLocalizedDescriptionKey : "No data returned from URLSession Data Task"]), nil)
                 return
             }
             
@@ -118,7 +118,7 @@ class APIController {
             
             guard let data = data else {
                 NSLog("No bearer token returned")
-                completion(NSError(), nil)
+                completion(NSError(domain: "No data returned", code: 001, userInfo: [NSLocalizedDescriptionKey : "No data returned from URLSession Data Task"]), nil)
                 return
             }
             
@@ -170,7 +170,7 @@ class APIController {
             
             guard let data = data else {
                 NSLog("No data returned when getting saved addresses")
-                completion(nil, NSError())
+                completion(nil, NSError(domain: "No data returned", code: 001, userInfo: [NSLocalizedDescriptionKey : "No data returned from URLSession Data Task"]))
                 return
             }
             
@@ -298,7 +298,7 @@ class APIController {
             
             guard let data = data else {
                 NSLog("No data returned when fetching fires")
-                completion(nil, NSError())
+                completion(nil, NSError(domain: "No data returned", code: 001, userInfo: [NSLocalizedDescriptionKey : "No data returned from URLSession Data Task"]))
                 return
             }
             
@@ -306,9 +306,12 @@ class APIController {
             do {
                 
                 let results = try JSONDecoder().decode(FireResults.self, from: data)
-                let fireLocations = results.fires
+                guard let fireLocations = results.fires else {
+                    completion(nil, NSError(domain: "No data returned", code: 001, userInfo: [NSLocalizedDescriptionKey : "No data returned from URLSession Data Task"]))
+                    return
+                }
                 
-                for fire in fireLocations! {
+                for fire in fireLocations {
                     let fire = fire.first
                     let coords = fire?.coords
                     let lat = coords?.last

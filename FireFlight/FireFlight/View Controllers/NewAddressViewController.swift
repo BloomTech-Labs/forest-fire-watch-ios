@@ -86,7 +86,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         addAddressButton.backgroundColor = .white
         
         radiusSlider.tintColor = AppearanceHelper.ming
-        radiusSlider.maximumTrackTintColor = AppearanceHelper.begonia
+        radiusSlider.maximumTrackTintColor = .darkGray
         
         
         let gradient = CAGradientLayer()

@@ -706,6 +706,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J8r-fi-45b"/>
                     </view>
+                    <navigationItem key="navigationItem" id="xx5-dA-hxs"/>
                     <connections>
                         <outlet property="addressTableView" destination="2tS-wZ-WyY" id="f5Q-iV-gCV"/>
                         <outlet property="closeButton" destination="d9T-37-dEv" id="SQK-1t-Btr"/>
@@ -747,6 +748,7 @@
                         <segue destination="6Tk-2q-u2M" kind="presentation" identifier="AddAddressSegue" id="Xzv-Gd-fdr"/>
                         <segue destination="B0t-60-E3v" kind="presentation" identifier="ShowSideMenu" id="nmR-Rk-pXX"/>
                         <segue destination="RU9-Ux-H8z" kind="presentation" identifier="NetworkUnavailable" id="AAH-Sk-Eb4"/>
+                        <segue destination="vis-qg-fqk" kind="show" identifier="ShowSavedAddressesSegue" id="ntp-Bz-o7a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mB0-Hd-wJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -901,10 +903,11 @@
         <image name="wifi.exclamationmark" width="19" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LPE-HK-QlZ"/>
+        <segue reference="Xzv-Gd-fdr"/>
         <segue reference="VsJ-yD-meH"/>
+        <segue reference="ntp-Bz-o7a"/>
         <segue reference="Eme-NL-cVL"/>
-        <segue reference="qKZ-PP-jD8"/>
+        <segue reference="AAH-Sk-Eb4"/>
         <segue reference="uxS-83-lCZ"/>
     </inferredMetricsTieBreakers>
 </document>

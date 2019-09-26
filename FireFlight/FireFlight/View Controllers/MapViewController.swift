@@ -306,6 +306,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
     }
+    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+        performSegue(withIdentifier: "ShowSavedAddressesSegue", sender: self)
+    }
+    
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         
@@ -314,7 +318,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 return nil
             }
         }
-        
         // Assign a reuse identifier to be used by both of the annotation views, taking advantage of their similarities.
         let reuseIdentifier = "reusableDotView"
         
@@ -369,7 +372,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         self.performSegue(withIdentifier: "NetworkUnavailable", sender: self)
     }
     
-    
     @objc func sideMenuSegue(sender: UIButton!) {
         self.performSegue(withIdentifier: "ShowSideMenu", sender: self)
     }
@@ -386,6 +388,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                 let destinationVC = destinationNavC.topViewController as? SideMenuViewController else { return }
     
             destinationNavC.statusBarEndAlpha = 0
+            destinationVC.apiController = apiController
+        }
+        
+        if segue.identifier == "ShowSavedAddressesSegue" {
+            guard let destinationVC = segue.destination as? SavedAddressesViewController else { return }
             destinationVC.apiController = apiController
         }
         
